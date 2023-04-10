@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-    @apply bg-cinder-950 text-cinder-50;
+    @apply bg-black text-cinder-50;
 }
