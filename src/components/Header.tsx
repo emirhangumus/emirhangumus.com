@@ -67,7 +67,7 @@ export default function Header() {
                         </div>
                     </Link>
                     <div className="lg:block hidden">
-                        <ul className="flex gap-2">
+                        <ul className="flex items-center">
                             {items.map(item => (
                                 <li key={item.id}>
                                     <Link href={item.href} className={`${path === item.href ? 'bg-cinder-800 text-white' : 'hover:text-cinder-100'} text-cinder-200 px-6 py-0.5 rounded-full block`}>

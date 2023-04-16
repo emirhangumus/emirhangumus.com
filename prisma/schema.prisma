@@ -35,7 +35,7 @@ model images {
   image_blurhash String
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
-  post           post[]
+  posts          posts[]
 }
 
 model anilar {
@@ -47,13 +47,24 @@ model anilar {
   updated_at  DateTime @updatedAt
 }
 
-model post {
+model posts {
   id         Int      @id @default(autoincrement())
   title      String
   image_id   Int
   content    Json
+  tag_ids    Json
+  slug       String   @unique
+  status     String   @default("DRAFT")
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   image images @relation(fields: [image_id], references: [id])
+}
+
+model tags {
+  id         Int      @id @default(autoincrement())
+  name       String
+  slug       String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }

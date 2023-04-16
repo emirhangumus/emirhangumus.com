@@ -1,0 +1,48 @@
+import { PostInterface } from "@/interfaces/PostInterface";
+import Image from "next/image";
+import Link from "next/link";
+
+type BlogCardProps = {
+    post: PostInterface;
+    availableButtons?: boolean;
+};
+
+export default function BlogCard({ post, availableButtons }: BlogCardProps) {
+    return (
+        <>
+            <Link href={`/blog/${post.slug}`} className="flex flex-col gap-2 hover:bg-cinder-950 rounded-lg cursor-pointer overflow-hidden p-1">
+                <div className="flex md:flex-row flex-col gap-2 items-stretch">
+                    <div className="relative aspect-square h-24 w-24 rounded-md overflow-hidden">
+                        <Image
+                            src={post.image.image_url}
+                            alt={post.title}
+                            fill={true}
+                            className="object-cover h-full w-full"
+                        />
+                    </div>
+                    <div className="flex-1 flex flex-col gap-2">
+                        <div className="flex-1">
+                            <h2 className="text-xl font-bold">{post.title}</h2>
+                        </div>
+                        <p className="text-sm text-gray-500">{new Date(post.created_at).toLocaleDateString('tr-TR', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        })}</p>
+                    </div>
+
+                </div>
+            </Link>
+            {availableButtons && (
+                <div className="flex gap-2 mt-4">
+                    <Link href={`/dashboard/blog/${post.slug}/edit`} className="bg-blue-800 hover:bg-blue-900 px-4 py-0.5 rounded">
+                        <p className="text-sm">Düzenle</p>
+                    </Link>
+                    <button className="bg-red-800 hover:bg-red-900 px-4 py-0.5 rounded">
+                        <p className="text-sm">Sil</p>
+                    </button>
+                </div>
+            )}
+        </>
+    )
+}

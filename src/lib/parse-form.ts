@@ -41,6 +41,8 @@ export const parseForm = async (
                 return filename;
             },
             filter: (part) => {
+                console.log(part);
+
                 return (
                     part.name === "media" && (part.mimetype?.includes("image") || false)
                 );
@@ -52,16 +54,41 @@ export const parseForm = async (
                 reject(err);
             } else {
                 const file = files.media;
+
+                if (!file) {
+
+                    const currentPostThumbnail = await prisma.posts.findUnique({
+                        where: {
+                            slug: req.query.slug as string,
+                        },
+                        select: {
+                            image: true,
+                        },
+                    });
+
+                    if (!currentPostThumbnail) {
+                        reject("Post not found");
+                        return;
+                    }
+
+                    fields.media = currentPostThumbnail.image.id.toString();
+
+                    resolve({ fields, files });
+                    return;
+                }
+
                 let url = Array.isArray(file) ? file.map((f) => f.filepath) : file.filepath;
                 url = getFilePath(Array.isArray(url) ? url[0] : url);
 
-                await prisma.images.create({
+                let data = await prisma.images.create({
                     data: {
                         user_id: 0,
                         image_url: url,
                         image_blurhash: "",
                     },
                 });
+
+                fields.media = data.id.toString();
 
                 resolve({ fields, files });
             }
