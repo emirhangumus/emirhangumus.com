@@ -43,9 +43,9 @@ export default function Header() {
             href: "/iletisim"
         },
         {
-            id: 'diger',
-            title: "Diğer",
-            href: "/diger"
+            id: 'anilarim',
+            title: "Anılarım",
+            href: "/anilarim"
         }
     ];
 

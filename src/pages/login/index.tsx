@@ -40,9 +40,6 @@ export default function Login() {
 
         let result = await response.json();
 
-        console.log(result);
-
-
         if (result.success) {
             Cookie.set("token", result.token);
 

@@ -1,6 +1,7 @@
 import FrontPageBanner from "@/components/FrontPageBanner";
 import { userAtom } from "@/lib/atoms/userAtom";
 import { useAtom } from "jotai";
+import Head from "next/head";
 
 export default function Home() {
 
@@ -8,6 +9,9 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>Anasayfa</title>
+      </Head>
       <FrontPageBanner />
     </>
   )

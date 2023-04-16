@@ -1,12 +1,13 @@
 import Container from "@/components/shared/Container";
 import DecoratedBox from "@/components/shared/DecoratedBox";
+import Text from "@/components/shared/Text";
 
 export default function Hakkimda() {
     return (
         <>
             <Container>
                 <div className="flex flex-col gap-4 pb-4">
-                    <h1 className="lg:text-4xl text-3xl font-bold">Hakkımda</h1>
+                    <Text level="h1">Hakkımda</Text>
                     <DecoratedBox className="flex flex-col gap-4 py-4">
                         <p className="text-cinder-400 lg:text-base text-sm">
                             Merhaba, ben <strong>Emirhan Gümüş</strong>. Samsun'da yaşıyorum. 20 yaşındayım ve Anadolu Üniversitesi Web Tasarım ve Kodlama okuyorum.

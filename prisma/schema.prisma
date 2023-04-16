@@ -24,6 +24,36 @@ model users {
 model sessions {
   sid     String   @id @default(uuid())
   user_id Int
-  token   String
+  token   String   @db.Text
   expire  DateTime
+}
+
+model images {
+  id             Int      @id @default(autoincrement())
+  user_id        Int
+  image_url      String
+  image_blurhash String
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+  post           post[]
+}
+
+model anilar {
+  id          Int      @id @default(autoincrement())
+  user_id     Int
+  description String
+  image       String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+}
+
+model post {
+  id         Int      @id @default(autoincrement())
+  title      String
+  image_id   Int
+  content    Json
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  image images @relation(fields: [image_id], references: [id])
 }
