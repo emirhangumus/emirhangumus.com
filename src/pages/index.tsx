@@ -2,6 +2,7 @@ import FrontPageBanner from "@/components/FrontPageBanner";
 import { userAtom } from "@/lib/atoms/userAtom";
 import { useAtom } from "jotai";
 import Head from "next/head";
+import { animated } from "@react-spring/web";
 
 export default function Home() {
 
@@ -12,7 +13,9 @@ export default function Home() {
       <Head>
         <title>Anasayfa</title>
       </Head>
-      <FrontPageBanner />
+      <animated.div>
+        <FrontPageBanner />
+      </animated.div>
     </>
   )
 }

@@ -68,3 +68,13 @@ model tags {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
+
+model contact {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String
+  subject    String
+  message    String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}

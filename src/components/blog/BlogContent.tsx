@@ -26,10 +26,10 @@ export default function BlogContent() {
             ) : (
                 <div className="flex flex-col pb-4">
                     {posts.map((post, index) => (
-                        <>
-                            <BlogCard key={post.id} post={post} />
+                        <div key={post.id}>
+                            <BlogCard post={post} />
                             {index !== posts.length - 1 && <Divider />}
-                        </>
+                        </div>
                     ))}
                 </div>
             )}

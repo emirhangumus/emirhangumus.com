@@ -41,12 +41,12 @@ export default function Blog() {
                     ) : (
                         <div className="flex flex-col">
                             {posts.map((post, index) => (
-                                <>
-                                    <BlogCard key={index} post={post} availableButtons={true} />
+                                <div key={index}>
+                                    <BlogCard post={post} availableButtons={true} />
                                     {index !== posts.length - 1 && (
                                         <Divider />
                                     )}
-                                </>
+                                </div>
                             ))}
                         </div>
                     )}
