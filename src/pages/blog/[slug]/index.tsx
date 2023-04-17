@@ -1,55 +1,17 @@
+import { RenderContent } from "@/components/blog/RenderContent";
 import Container from "@/components/shared/Container";
 import { PostInterface } from "@/interfaces/PostInterface";
+import type { DataProp } from "editorjs-blocks-react-renderer";
 import { GetServerSidePropsContext } from "next";
-import Blocks from 'editorjs-blocks-react-renderer';
-import type { DataProp } from 'editorjs-blocks-react-renderer';
 import Image from "next/image";
-import { CodeBlockRenderer } from "@/components/blog/CodeBlockRenderer";
 import Link from "next/link";
+
 
 type BlogPostProps = {
     post: PostInterface;
 };
 
-const defaultConfigs = {
-    code: {
-        className: ""
-    },
-    delimiter: {
-        className: ""
-    },
-    embed: {
-        className: "",
-        rel: "noreferer nofollower external", // Generates an <a> if not able to receive an "embed" property
-        sandbox: undefined
-    },
-    header: {
-        className: ""
-    },
-    image: {
-        className: "",
-        actionsClassNames: {
-            stretched: "image-block--stretched",
-            withBorder: "image-block--with-border",
-            withBackground: "image-block--with-background",
-        }
-    },
-    list: {
-        className: ""
-    },
-    paragraph: {
-        className: ""
-    },
-    quote: {
-        className: "",
-        actionsClassNames: {
-            alignment: "text-align-center", // This is a substitution placeholder: left or center.
-        }
-    },
-    table: {
-        className: ""
-    }
-}
+
 
 export default function BlogPost({ post }: BlogPostProps) {
     return (
@@ -84,9 +46,7 @@ export default function BlogPost({ post }: BlogPostProps) {
                         </div>
                     ) : null}
                     <div className="blockRenderer flex flex-col">
-                        <Blocks data={post.content as DataProp} config={defaultConfigs} renderers={{
-                            codeBox: CodeBlockRenderer
-                        }} />
+                        <RenderContent data={post.content as DataProp} />
                     </div>
                 </div>
             </Container >

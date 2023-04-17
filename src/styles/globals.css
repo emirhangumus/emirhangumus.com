@@ -115,6 +115,95 @@ body:not(.codex-editor *) {
     font-style: italic;
 }
 
+.blockRenderer pre {
+    @apply h-auto overflow-auto max-h-[500px] text-xs bg-[#1e1e1e] break-normal whitespace-pre;
+    word-wrap: normal !important;
+}
+
+.blockRenderer figure figcaption {
+    @apply text-xs text-cinder-300 m-2 text-center;
+}
+
+.image-block--stretched {
+    @apply w-full rounded-lg overflow-hidden;
+}
+
+.image-block--with-border {
+    @apply border-2 border-cinder-800 rounded-lg overflow-hidden;
+}
+
+.image-block--with-background {
+    @apply bg-cinder-800 p-4 rounded-lg overflow-hidden;
+}
+
+.blockRenderer blockquote {
+    @apply border-l-4 border-cinder-800 pl-4 italic;
+}
+
+.blockRenderer blockquote p {
+    @apply mb-0;
+}
+
+.blockRenderer > figure {
+    @apply mb-4;
+}
+
+.blockRenderer blockquote footer {
+    @apply text-right text-xs text-cinder-300;
+}
+
+.blockRenderer > blockquote {
+    @apply mb-4;
+}
+
+.blockRenderer > ul {
+    @apply mb-4;
+}
+
+.blockRenderer > ol {
+    @apply mb-4;
+}
+
+.blockRenderer ul {
+    @apply list-disc list-inside;
+}
+
+.blockRenderer ol {
+    @apply list-decimal list-inside;
+}
+
+.blockRenderer table {
+    @apply w-full border-collapse border border-cinder-800;
+}
+
+.blockRenderer table thead {
+    @apply bg-cinder-800;
+}
+
+.blockRenderer table thead th {
+    @apply text-start py-1 px-2 whitespace-nowrap;
+}
+
+.blockRenderer table th {
+    @apply border border-cinder-800;
+}
+
+.blockRenderer table td {
+    @apply border border-cinder-800 px-2 py-1;
+}
+
+.blockRenderer table tr:nth-child(odd) {
+    @apply bg-cinder-900;
+}
+
+.blockRenderer table tr:nth-child(even) {
+    @apply bg-cinder-800;
+}
+
+.table-responsive {
+    @apply overflow-auto;
+}
+
 ::selection {
     @apply bg-pink-900 text-cinder-50;
 }

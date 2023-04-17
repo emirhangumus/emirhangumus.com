@@ -46,7 +46,9 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
             return res.status(401).json({ success: false, message: "Unauthorized" })
         }
 
-        const { fields, files } = await parseForm(req);
+        const { fields, files } = await parseForm(req, {
+            get: 'shortPath',
+        });
 
         const file = files.media;
         let url = Array.isArray(file) ? file.map((f) => f.filepath) : file.filepath;

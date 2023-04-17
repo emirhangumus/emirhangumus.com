@@ -9,8 +9,15 @@ import prisma from "./prisma";
 
 export const FormidableError = formidable.errors.FormidableError;
 
+type parseFormOptions = {
+    get: 'id' | 'shortPath' | 'fullPath';
+};
+
 export const parseForm = async (
-    req: NextApiRequest
+    req: NextApiRequest,
+    options = {
+        get: "shortPath",
+    } as parseFormOptions
 ): Promise<{ fields: formidable.Fields; files: formidable.Files }> => {
     return await new Promise(async (resolve, reject) => {
         const uploadDir = join(
@@ -41,8 +48,6 @@ export const parseForm = async (
                 return filename;
             },
             filter: (part) => {
-                console.log(part);
-
                 return (
                     part.name === "media" && (part.mimetype?.includes("image") || false)
                 );
@@ -55,8 +60,7 @@ export const parseForm = async (
             } else {
                 const file = files.media;
 
-                if (!file) {
-
+                if (!file && req.query.slug) {
                     const currentPostThumbnail = await prisma.posts.findUnique({
                         where: {
                             slug: req.query.slug as string,
@@ -77,20 +81,56 @@ export const parseForm = async (
                     return;
                 }
 
-                let url = Array.isArray(file) ? file.map((f) => f.filepath) : file.filepath;
-                url = getFilePath(Array.isArray(url) ? url[0] : url);
+                if (options.get === "id") {
+                    const data = await prisma.images.create({
+                        data: {
+                            user_id: 0,
+                            image_url: "",
+                            image_blurhash: "",
+                        },
+                    });
 
-                let data = await prisma.images.create({
-                    data: {
-                        user_id: 0,
-                        image_url: url,
-                        image_blurhash: "",
-                    },
-                });
+                    fields.media = data.id.toString();
+                    resolve({ fields, files });
+                    return;
+                }
 
-                fields.media = data.id.toString();
+                if (options.get === "shortPath") {
+                    let url = Array.isArray(file) ? file.map((f) => f.filepath) : file.filepath;
+                    url = getFilePath(Array.isArray(url) ? url[0] : url);
 
-                resolve({ fields, files });
+                    let data = await prisma.images.create({
+                        data: {
+                            user_id: 0,
+                            image_url: url,
+                            image_blurhash: "",
+                        },
+                    });
+
+                    fields.media = data.image_url;
+
+                    resolve({ fields, files });
+                    return;
+                }
+
+                if (options.get === "fullPath") {
+                    let url = Array.isArray(file) ? file.map((f) => f.filepath) : file.filepath;
+                    url = Array.isArray(url) ? url[0] : url;
+
+                    let data = await prisma.images.create({
+                        data: {
+                            user_id: 0,
+                            image_url: url,
+                            image_blurhash: "",
+                        },
+                    });
+
+                    fields.media = url;
+
+                    resolve({ fields, files });
+                    return;
+                }
+
             }
         });
     });
