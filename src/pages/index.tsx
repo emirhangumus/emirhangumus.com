@@ -1,4 +1,5 @@
 import FrontPageBanner from "@/components/FrontPageBanner";
+import FadeIn from "@/components/animations/FadeIn";
 import Head from "next/head";
 
 export default function Home() {
@@ -7,7 +8,9 @@ export default function Home() {
       <Head>
         <title>Anasayfa</title>
       </Head>
-      <FrontPageBanner />
+      <FadeIn>
+        <FrontPageBanner />
+      </FadeIn>
     </>
   )
 }

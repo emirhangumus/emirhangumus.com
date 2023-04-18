@@ -50,7 +50,7 @@ export default function Header() {
     ];
 
     return (
-        <header className="border-b border-cinder-900 mb-4">
+        <header className="border-b border-cinder-900 mb-4 relative z-10">
             <Container>
                 <div className="flex justify-between py-4 items-center">
                     <Link href="/" className="text-2xl font-bold group">

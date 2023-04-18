@@ -10,7 +10,7 @@ type BlogCardProps = {
 export default function BlogCard({ post, availableButtons }: BlogCardProps) {
     return (
         <>
-            <Link href={`/blog/${post.slug}`} className="flex flex-col gap-2 hover:bg-cinder-950 rounded-lg cursor-pointer overflow-hidden p-1">
+            <Link href={`/blog/${post.slug}`} className="flex flex-col gap-2 hover:bg-cinder-950 hover:bg-opacity-30 border border-transparent hover:border-cinder-900 transition-all rounded-lg cursor-pointer overflow-hidden p-1">
                 <div className="flex md:flex-row flex-col gap-2 items-stretch">
                     <div className="relative aspect-square h-24 w-24 rounded-md overflow-hidden">
                         <Image

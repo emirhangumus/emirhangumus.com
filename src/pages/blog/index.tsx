@@ -1,8 +1,10 @@
 import BlogContent from "@/components/blog/BlogContent";
 import Container from "@/components/shared/Container";
 import Text from "@/components/shared/Text";
+import { PostInterface } from "@/interfaces/PostInterface";
+import type { GetServerSidePropsContext } from "next";
 
-export default function Blog() {
+export default function Blog({ posts }: { posts: PostInterface[] }) {
     return (
         <>
             <Container>
@@ -13,10 +15,30 @@ export default function Blog() {
                     </Text>
                     <hr />
                     <div className="mt-4">
-                        <BlogContent />
+                        <BlogContent posts={posts} />
                     </div>
                 </div>
             </Container>
         </>
     )
+}
+
+
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+    const posts = await fetch(`${process.env.BASE_URL}/api/blog`)
+        .then(res => res.json())
+
+    if (!posts || !posts.data || !posts.success) {
+        return {
+            props: {
+                post: null
+            }
+        }
+    }
+
+    return {
+        props: {
+            posts: posts.data
+        }
+    }
 }

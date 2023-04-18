@@ -41,7 +41,7 @@ export default function BlogPost({ post }: BlogPostProps) {
                     {post.tags ? (
                         <div className="flex gap-2">
                             {post.tags.map(tag => (
-                                <Link href={`/blog/etiket/${tag.slug}`} className="bg-cinder-900 text-white px-2 text-xs py-1 rounded-lg">{tag.name}</Link>
+                                <Link href={`/blog/etiket/${tag.slug}`} className="bg-cinder-900 text-white px-2 text-xs py-1 rounded-lg">#{tag.name}</Link>
                             ))}
                         </div>
                     ) : null}
