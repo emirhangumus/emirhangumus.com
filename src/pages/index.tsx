@@ -17,14 +17,14 @@ export default function Home() {
           <Marquee gradient={false} rotate={1} className="mb-2 bg-black border-y py-1 [&_span]:mr-2">
             {
               Array.from({ length: 50 }).map((_, i) => (
-                <span className="text-xl font-mono">HIRE ME - </span>
+                <span className="text-xl font-mono" key={i}>HIRE ME - </span>
               ))
             }
           </Marquee >
           <Marquee gradient={false} rotate={1} direction="right" className="mb-2 bg-black border-y py-1 [&_span]:mr-2">
             {
               Array.from({ length: 50 }).map((_, i) => (
-                <span className="text-xl font-mono">HIRE ME - </span>
+                <span className="text-xl font-mono" key={i}>HIRE ME - </span>
               ))
             }
           </Marquee>

@@ -1,4 +1,7 @@
-const quotes = [
+import { useEffect, useState } from "react";
+import ReactHTMLParser from "react-html-parser";
+
+const quotesArr = [
     "Hayatta başarılı olmanın sırrı, kendini sevmek ve inanmaktır.",
     "Gerçek mutluluk, başka insanlara hizmet etmekten gelir.",
     "Bir adım atmak, bin düşünmekten iyidir.",
@@ -15,7 +18,17 @@ const quotes = [
     "Bir insanın sevgilisi için yapamayacağı şey yoktur. Aşk insanı sınırlarını zorlamaya ve kendini aşmaya itebilir.",
     "Aşk, insanın içindeki en güzel duygulardan biridir. Aşkı yaşayan insan, hayatın geri kalanında her şeye daha farklı bakar.",
     "Aşk, her şeyden önce fedakarlık demektir. Kendini sevdiğin insanın mutluluğu için feda etmek, gerçek aşkın en güzel örneğidir.",
-    "Aşkta zaman ve mekan kavramları yoktur. İki insanın sevgisi, her şeyin üstesinden gelir ve sonsuz bir şekilde devam eder."
+    "Aşkta zaman ve mekan kavramları yoktur. İki insanın sevgisi, her şeyin üstesinden gelir ve sonsuz bir şekilde devam eder.",
+    "Hayatta hiçbir şey tesadüf değildir. Her şeyin bir sebebi ve anlamı vardır.",
+    "Başarının anahtarı, sadece işinize odaklanmak değil, aynı zamanda insanlarla ilişki kurmaktır.",
+    "Yaşamak, tehlike almadan hayatta kalmaktan daha fazlasıdır.",
+    "Bir insanın korkusuz olması değil, korkusuna rağmen hareket edebilmesi önemlidir.",
+    "Geçmişin bizi nereden getirdiği, gelecekte bizi nereye götürecektir.",
+    "Zorluklar, sizi hayatta tutan şeydir. Kendinize meydan okumayı bıraktığınızda, hayatınızın anlamını kaybedersiniz.",
+    "Herhangi bir şeyin hayatınızı etkilemesine izin vermeyin, çünkü sadece kendinizin ona izin vermenize izin verdiğini unutmayın.",
+    "İnsanların hayatında bir kez bile olsa, gerçek bir aşkı yaşaması gerekir. Aşk, her şeyin üstesinden gelebilir ve herkesi değiştirebilir.",
+    "Gerçek aşk, sadece kalbin değil, ruhun da birleşmesidir.",
+    "Aşk, insanı değiştiren en güçlü duygudur. Sevdiğimiz insan için yapabileceklerimizin sınırı yoktur.",
 ];
 
 /**
@@ -32,11 +45,20 @@ const quotes = [
  */
 
 export default function Footer() {
+
+    // calculate the extra quote show probability as percentage
+    let probability = 100 - Math.floor((quotesArr.length / (quotesArr.length + 1)) * 100);
+
+    let extra = "🦄 Özledim seni Müzeyyen'im 🦄 <br> (Bu mesajı görme olasılığın %" + probability + " ve sen bu mesajı gördün. Tebrik ederim.)";
+    let quotes = [...quotesArr, extra];
+
+    const currentQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
     return (
-        <footer className="bg-cinder-950 bg-opacity-70 mt-4 border-t border-cinder-700">
+        <footer className="bg-cinder-950 bg-opacity-10 mt-4 border-t border-cinder-800">
             <div className="max-w-7xl mx-auto py-8 px-4 overflow-hidden sm:px-6 lg:px-8">
                 <p className="text-center text-sm text-cinder-500">
-                    {quotes[Math.floor(Math.random() * quotes.length)]}
+                    {ReactHTMLParser(currentQuote)}
                 </p>
             </div>
         </footer >
