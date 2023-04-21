@@ -288,3 +288,61 @@ body:not(.codex-editor *) {
         transform: rotate(360deg);
     }
 }
+
+.marquee-container {
+    @apply overflow-x-hidden flex flex-row relative w-full;
+}
+.marquee-container:hover div {
+    animation-play-state: var(--pause-on-hover);
+}
+.marquee-container:active div {
+    animation-play-state: var(--pause-on-click);
+}
+.overlay {
+    @apply absolute w-full h-full after:right-0 after:top-0 before:left-0 before:top-0;
+}
+.overlay::before,
+.overlay::after {
+    @apply content-[""] h-full absolute w-[var(--gradient-width)] z-[2];
+    background: linear-gradient(to right, var(--gradient-color));
+}
+.overlay::after {
+    transform: rotateZ(180deg);
+}
+.marquee {
+    @apply flex-[0_0_auto] min-w-full z-[1] flex flex-row items-center animate-[scroll_var(--duration)_linear_var(--delay)_var(--iteration-count)];
+    animation-play-state: var(--play);
+    animation-delay: var(--delay);
+    animation-direction: var(--direction);
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.decoratedBox::after {
+    content: "";
+    background: linear-gradient(
+        to top,
+        transparent,
+        rgb(190 24 93),
+        transparent
+    );
+    height: 50%;
+    width: 1px;
+    position: absolute;
+    left: -1px;
+    top: 65%;
+    opacity: 0;
+    transition: top 0.6s, opacity 0.6s;
+}
+
+.decoratedBox:hover::after {
+    top: 25%;
+    opacity: 1;
+}
