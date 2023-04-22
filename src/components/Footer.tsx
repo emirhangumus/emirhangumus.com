@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
-import ReactHTMLParser from "react-html-parser";
-
-const quotesArr = [
+const quotes = [
     "Hayatta başarılı olmanın sırrı, kendini sevmek ve inanmaktır.",
     "Gerçek mutluluk, başka insanlara hizmet etmekten gelir.",
     "Bir adım atmak, bin düşünmekten iyidir.",
@@ -29,6 +26,8 @@ const quotesArr = [
     "İnsanların hayatında bir kez bile olsa, gerçek bir aşkı yaşaması gerekir. Aşk, her şeyin üstesinden gelebilir ve herkesi değiştirebilir.",
     "Gerçek aşk, sadece kalbin değil, ruhun da birleşmesidir.",
     "Aşk, insanı değiştiren en güçlü duygudur. Sevdiğimiz insan için yapabileceklerimizin sınırı yoktur.",
+    "'Bekle' dedi gitti. Ben beklemedim, o da gelmedi.",
+    "Özledim seni Müzeyyen'im",
 ];
 
 /**
@@ -45,20 +44,11 @@ const quotesArr = [
  */
 
 export default function Footer() {
-
-    // calculate the extra quote show probability as percentage
-    let probability = 100 - Math.floor((quotesArr.length / (quotesArr.length + 1)) * 100);
-
-    let extra = "🦄 Özledim seni Müzeyyen'im 🦄 <br> (Bu mesajı görme olasılığın %" + probability + " ve sen bu mesajı gördün. Tebrik ederim.)";
-    let quotes = [...quotesArr, extra];
-
-    const currentQuote = quotes[Math.floor(Math.random() * quotes.length)];
-
     return (
         <footer className="bg-cinder-950 bg-opacity-10 mt-4 border-t border-cinder-800">
             <div className="max-w-7xl mx-auto py-8 px-4 overflow-hidden sm:px-6 lg:px-8">
                 <p className="text-center text-sm text-cinder-500">
-                    {ReactHTMLParser(currentQuote)}
+                    {quotes[Math.floor(Math.random() * quotes.length)]}
                 </p>
             </div>
         </footer >

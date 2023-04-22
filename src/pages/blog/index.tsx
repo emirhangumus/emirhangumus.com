@@ -23,7 +23,6 @@ export default function Blog({ posts }: { posts: PostInterface[] }) {
     )
 }
 
-
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     const posts = await fetch(`${process.env.BASE_URL}/api/blog`)
         .then(res => res.json())
