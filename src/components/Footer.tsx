@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const quotes = [
     "Hayatta başarılı olmanın sırrı, kendini sevmek ve inanmaktır.",
     "Gerçek mutluluk, başka insanlara hizmet etmekten gelir.",
@@ -49,6 +51,9 @@ export default function Footer() {
             <div className="max-w-7xl mx-auto py-8 px-4 overflow-hidden sm:px-6 lg:px-8">
                 <p className="text-center text-sm text-cinder-500">
                     {quotes[Math.floor(Math.random() * quotes.length)]}
+                </p>
+                <p className="mt-4 text-center text-xs text-cinder-500">
+                    &copy; {new Date().getFullYear()} <Link href="/" className="hover:text-cinder-400">Emirhan Gümüş</Link>
                 </p>
             </div>
         </footer >

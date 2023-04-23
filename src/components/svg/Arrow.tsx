@@ -10,8 +10,8 @@ function Arrow(props: Props) {
             xmlns="http://www.w3.org/2000/svg"
             enableBackground="new 0 0 200.981 200.981"
             viewBox="0 0 200.981 200.981"
-            width={props.width || "20"}
-            height={props.height || "20"}
+            width={props.width ?? "20"}
+            height={props.height ?? "20"}
             className={`fill-cinder-100 ${props.className}`}
         >
             <path

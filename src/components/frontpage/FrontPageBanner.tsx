@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Container from "./shared/Container";
-import DecoratedBox from "./shared/DecoratedBox";
+import Container from "../shared/Container";
+import DecoratedBox from "../shared/DecoratedBox";
 import { useEffect, useRef, useState } from "react";
 
 export default function FrontPageBanner() {

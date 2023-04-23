@@ -2,6 +2,8 @@ import FadeIn from "@/components/animations/FadeIn";
 import Container from "@/components/shared/Container";
 import DecoratedBox from "@/components/shared/DecoratedBox";
 import Text from "@/components/shared/Text";
+import Arrow from "@/components/svg/Arrow";
+import Link from "next/link";
 import ReactHtmlParser from 'react-html-parser';
 
 const about_texts = [
@@ -37,6 +39,16 @@ export default function Hakkimda() {
                             </DecoratedBox>
                         </FadeIn>
                     ))}
+                    <div>
+                        <FadeIn delay={about_texts.length * 300 + 300}>
+                            <div className="relative flex items-center gap-2">
+                                <Arrow className="fill-white" />
+                                <Link href="/iletisim" className="text-cinder-950 bg-cinder-50 inline-block px-8 py-1 rounded-full lg:text-base text-sm font-mono">
+                                    İletişim
+                                </Link>
+                            </div>
+                        </FadeIn>
+                    </div>
                 </div>
             </Container>
         </>

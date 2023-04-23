@@ -43,14 +43,14 @@ export default function Header() {
             href: "/hakkimda"
         },
         {
-            id: 'iletisim',
-            title: "İletişim",
-            href: "/iletisim"
-        },
-        {
             id: 'anilarim',
             title: "Anılarım",
             href: "/anilarim"
+        },
+        {
+            id: 'iletisim',
+            title: "İletişim",
+            href: "/iletisim"
         }
     ];
 
