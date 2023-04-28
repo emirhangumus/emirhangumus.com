@@ -61,7 +61,7 @@ export default function Anilar() {
                         ) : (
                             <div className="grid grid-cols-1 gap-4 max-w-md mx-auto">
                                 {anilar.map((ani) => (
-                                    <div className="p-4 rounded-lg bg-cinder-900">
+                                    <div className="p-4 rounded-lg bg-cinder-900" key={ani.id}>
                                         <div>
                                             <button className="bg-red-800 hover:bg-red-900 px-4 py-0.5 rounded" onClick={() => deleteAni(ani.id)}>
                                                 <Text>Sil</Text>

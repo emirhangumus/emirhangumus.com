@@ -26,6 +26,12 @@ export default function Blog() {
         fetchPosts()
     }, [])
 
+    const deletePostCB = (from: string = "", data: { id: number }) => {
+        if (from == 'delete') {
+            setPosts(posts.filter(post => post.id !== data.id))
+        }
+    }
+
     return (
         <>
             <Container>
@@ -42,7 +48,7 @@ export default function Blog() {
                         <div className="flex flex-col">
                             {posts.map((post, index) => (
                                 <div key={index}>
-                                    <BlogCard post={post} availableButtons={true} />
+                                    <BlogCard post={post} availableButtons={true} callback={deletePostCB} />
                                     {index !== posts.length - 1 && (
                                         <Divider />
                                     )}

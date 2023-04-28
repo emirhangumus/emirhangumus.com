@@ -1,13 +1,33 @@
 import { PostInterface } from "@/interfaces/PostInterface";
+import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 
 type BlogCardProps = {
     post: PostInterface;
     availableButtons?: boolean;
+    callback?: (from?: string, data?: any) => void;
 };
 
-export default function BlogCard({ post, availableButtons }: BlogCardProps) {
+export default function BlogCard({ post, availableButtons, callback }: BlogCardProps) {
+
+    const deletePost = async () => {
+        const res = await fetch(`/api/blog?blog_id=${post.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'token': Cookies.get('token') || '',
+            }
+        })
+        const data = await res.json()
+
+        if (data.success) {
+            callback && callback('delete', { id: post.id })
+        } else {
+            callback && callback('error', { id: post.id })
+        }
+    }
+
     return (
         <>
             <Link href={`/blog/${post.slug}`} className="flex flex-col gap-2 hover:bg-cinder-950 hover:bg-opacity-30 border border-transparent hover:border-cinder-900 transition-all rounded-lg cursor-pointer overflow-hidden p-1">
@@ -38,7 +58,7 @@ export default function BlogCard({ post, availableButtons }: BlogCardProps) {
                     <Link href={`/dashboard/blog/${post.slug}/edit`} className="bg-blue-800 hover:bg-blue-900 px-4 py-0.5 rounded">
                         <p className="text-sm">Düzenle</p>
                     </Link>
-                    <button className="bg-red-800 hover:bg-red-900 px-4 py-0.5 rounded">
+                    <button className="bg-red-800 hover:bg-red-900 px-4 py-0.5 rounded" onClick={async () => await deletePost()}>
                         <p className="text-sm">Sil</p>
                     </button>
                 </div>

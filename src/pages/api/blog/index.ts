@@ -16,6 +16,9 @@ export default async function handler(
         case 'POST':
             await POST(req, res)
             break
+        case 'DELETE':
+            await DELETE(req, res)
+            break
         default:
             res.status(405).end(`Method ${req.method} Not Allowed`)
     }
@@ -146,6 +149,42 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
             success: true,
             message: "Post created successfully",
         });
+    } catch (error: any) {
+        console.log(error);
+        res.status(500).json({ success: false, message: error.message })
+    }
+}
+
+
+const DELETE = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+        const isOkay = await validateUser(req, res);
+
+        if (!isOkay.isLogged) {
+            return res.status(401).json({ success: false, message: "Unauthorized" })
+        }
+
+        const { blog_id } = req.query;
+
+        if (!blog_id) {
+            return res.status(400).json({ success: false, message: "Bad request" })
+        }
+
+        const post = await prisma.posts.delete({
+            where: {
+                id: parseInt(blog_id as string),
+            },
+        });
+
+        if (!post) {
+            return res.status(500).json({ success: false, message: "Something went wrong" })
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Post deleted successfully",
+        });
+
     } catch (error: any) {
         console.log(error);
         res.status(500).json({ success: false, message: error.message })
