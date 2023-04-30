@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Anasayfa</title>
+        <title>Anasayfa | Emirhan Gümüş</title>
         <meta name="description" content="Anasayfa" />
       </Head>
       <FadeIn>

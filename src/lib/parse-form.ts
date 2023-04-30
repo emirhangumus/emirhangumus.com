@@ -82,10 +82,13 @@ export const parseForm = async (
                 }
 
                 if (options.get === "id") {
+                    let url = Array.isArray(file) ? file.map((f) => f.filepath) : file.filepath;
+                    url = getFilePath(Array.isArray(url) ? url[0] : url);
+
                     const data = await prisma.images.create({
                         data: {
                             user_id: 0,
-                            image_url: "",
+                            image_url: url,
                             image_blurhash: "",
                         },
                     });
@@ -131,6 +134,7 @@ export const parseForm = async (
                     return;
                 }
 
+                resolve({ fields, files });
             }
         });
     });

@@ -26,6 +26,12 @@ export default async function handler(
 
 const GET = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
+        const isOkay = await validateUser(req, res);
+
+        if (!isOkay.isLogged) {
+            return res.status(401).json({ success: false, message: "Unauthorized" })
+        }
+
         const posts = await prisma.posts.findMany({
             include: {
                 image: true,
@@ -78,7 +84,9 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
             return res.status(401).json({ success: false, message: "Unauthorized" })
         }
 
-        const { fields, files } = await parseForm(req);
+        const { fields, files } = await parseForm(req, {
+            get: "id"
+        });
 
         const { title, content, tags, media } = fields;
 

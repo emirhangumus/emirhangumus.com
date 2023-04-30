@@ -5,10 +5,14 @@ import Text from "@/components/shared/Text";
 import { PostInterface } from "@/interfaces/PostInterface";
 import { TagInterface } from "@/interfaces/TagInterface";
 import type { GetServerSidePropsContext } from "next";
+import Head from "next/head";
 
 export default function Etiket({ posts, tag }: { posts: PostInterface[], tag: TagInterface }) {
     return (
         <>
+            <Head>
+                <title>{'#' + tag.name} | Emirhan Gümüş</title>
+            </Head>
             <Container>
                 <Text level="h1">
                     {'#' + tag.name}

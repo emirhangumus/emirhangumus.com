@@ -3,6 +3,7 @@ import Container from "@/components/shared/Container";
 import DecoratedBox from "@/components/shared/DecoratedBox";
 import Text from "@/components/shared/Text";
 import Arrow from "@/components/svg/Arrow";
+import Head from "next/head";
 import Link from "next/link";
 import ReactHtmlParser from 'react-html-parser';
 
@@ -27,6 +28,9 @@ const about_texts = [
 export default function Hakkimda() {
     return (
         <>
+            <Head>
+                <title>Hakkımda | Emirhan Gümüş</title>
+            </Head>
             <Container>
                 <div className="flex flex-col gap-4 pb-4">
                     <Text level="h1">Hakkımda</Text>

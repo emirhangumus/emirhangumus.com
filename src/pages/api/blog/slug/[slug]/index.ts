@@ -25,9 +25,10 @@ async function GET(req: NextApiRequest, res: NextApiResponse) {
             tags: tags[]
         }
 
-        const data = await prisma.posts.findUnique({
+        const data = await prisma.posts.findFirst({
             where: {
                 slug: slug as string,
+                status: "PUBLISHED",
             },
             include: {
                 image: true,

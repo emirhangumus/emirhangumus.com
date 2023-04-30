@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Cookie from "js-cookie";
 import { useAtom } from "jotai";
 import { userAtom } from "@/lib/atoms/userAtom";
+import Head from "next/head";
 
 export default function Login() {
 
@@ -57,6 +58,9 @@ export default function Login() {
 
     return (
         <>
+            <Head>
+                <title>Giriş Yap | Emirhan Gümüş</title>
+            </Head>
             <Container className="max-w-lg">
                 <DecoratedBox className="py-8">
                     <h1 className="lg:text-4xl text-3xl font-bold">Giriş Yap</h1>

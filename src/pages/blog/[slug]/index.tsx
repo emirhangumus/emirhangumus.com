@@ -3,19 +3,20 @@ import Container from "@/components/shared/Container";
 import { PostInterface } from "@/interfaces/PostInterface";
 import type { DataProp } from "editorjs-blocks-react-renderer";
 import { GetServerSidePropsContext } from "next";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-
 
 type BlogPostProps = {
     post: PostInterface;
 };
 
-
-
 export default function BlogPost({ post }: BlogPostProps) {
     return (
         <>
+            <Head>
+                <title>{post.title} | Emirhan Gümüş</title>
+            </Head>
             <Container>
                 <div className="flex flex-col gap-4 max-w-2xl mx-auto mb-8">
                     <h2 className="md:text-3xl text-lg font-bold flex md:flex-row flex-col justify-between items-center">
@@ -49,7 +50,7 @@ export default function BlogPost({ post }: BlogPostProps) {
                         <RenderContent data={post.content as DataProp} />
                     </div>
                 </div>
-            </Container >
+            </Container>
         </>
     )
 }

@@ -3,6 +3,7 @@ import { PostInterface } from "@/interfaces/PostInterface";
 import { url_slug } from "@/lib/functions/url_slug";
 import type { OutputData } from "@editorjs/editorjs";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 import { memo, useEffect, useState } from "react";
 
 type Props = {
@@ -24,6 +25,8 @@ const Editor = memo(function EditorComponent({ initSave, content }: EditorCompon
 
 
 export default function BlogEditor({ data }: Props) {
+
+    const router = useRouter();
 
     const [title, setTitle] = useState<string>('');
     const [instance, setInstance] = useState<EditorCoreInterface | null>(null);
@@ -62,9 +65,9 @@ export default function BlogEditor({ data }: Props) {
         }).then(res => res.json());
 
         if (res.success) {
-            alert('Başarılı');
+            router.push('/dashboard/blog');
         } else {
-            alert('Başarısız');
+            alert(res.message);
         }
     };
 

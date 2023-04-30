@@ -7,6 +7,7 @@ import Text from "@/components/shared/Text";
 import TitleWithBackButton from "@/components/shared/TitleWithBackButton";
 import { PostInterface } from "@/interfaces/PostInterface";
 import { getSession } from "@/lib/functions/getSession";
+import Cookies from "js-cookie";
 import Link from "next/link";
 import type { GetServerSidePropsContext } from "next/types";
 import { useEffect, useState } from "react";
@@ -18,7 +19,13 @@ export default function Blog() {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const res = await fetch('/api/blog')
+            const res = await fetch('/api/blog', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'token': Cookies.get('token') || ''
+                }
+            })
             const data = await res.json()
             setPosts(data.data)
             setLoading(false)

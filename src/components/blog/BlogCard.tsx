@@ -2,6 +2,7 @@ import { PostInterface } from "@/interfaces/PostInterface";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
+import Switch from "../shared/Switch";
 
 type BlogCardProps = {
     post: PostInterface;
@@ -61,6 +62,22 @@ export default function BlogCard({ post, availableButtons, callback }: BlogCardP
                     <button className="bg-red-800 hover:bg-red-900 px-4 py-0.5 rounded" onClick={async () => await deletePost()}>
                         <p className="text-sm">Sil</p>
                     </button>
+                    <Switch isActive={post.status === "PUBLISHED"} callback={async (state) => {
+                        const res = await fetch(`/api/blog/status?blog_id=${post.id}&status=${state ? "PUBLISHED" : "DRAFT"}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'token': Cookies.get('token') || '',
+                            },
+                        })
+                        const data = await res.json()
+
+                        if (data.success) {
+                            return true
+                        } else {
+                            return false
+                        }
+                    }} />
                 </div>
             )}
         </>
