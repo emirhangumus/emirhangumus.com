@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SocialMedias from "./SocialMedias";
 
 export default function ContactForm() {
 

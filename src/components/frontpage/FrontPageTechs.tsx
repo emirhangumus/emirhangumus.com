@@ -18,6 +18,7 @@ import GitHubSVG from "../svg/brands/GitHubSVG";
 import PrismaSVG from "../svg/brands/PrismaSVG";
 import KnexSVG from "../svg/brands/KnexSVG";
 import FigmaSVG from "../svg/brands/FigmaSVG";
+import FadeIn from "../animations/FadeIn";
 
 const items = [
     {
@@ -134,20 +135,22 @@ export default function FrontPageTechs() {
                 <h1 className="font-bold lg:text-3xl text-xl">Kullandığım <span className="font-normal">Teknolojiler</span></h1>
                 <div className="grid lg:gap-8 gap-4">
                     {items.map((item, i) => (
-                        <div key={i} className="flex flex-col gap-4 py-4">
-                            <h2 className="font-bold lg:text-xl text-base font-mono">{item.title}</h2>
-                            <Divider className="my-0" />
-                            <div className="grid lg:grid-cols-3 grid-cols-1 gap-4">
-                                {item.items.map((tech, i) => (
-                                    <DecoratedBox key={i} className="flex flex-col gap-2 py-4" href={tech.link} target="_blank">
-                                        <div className="flex items-center gap-2">
-                                            {tech.icon}
-                                            <span className="font-bold text-xl">{tech.title}</span>
-                                        </div>
-                                    </DecoratedBox>
-                                ))}
+                        <FadeIn key={i}>
+                            <div className="flex flex-col gap-4 py-4">
+                                <h2 className="font-bold lg:text-xl text-base font-mono">{item.title}</h2>
+                                <Divider className="my-0" />
+                                <div className="grid lg:grid-cols-3 grid-cols-1 gap-4">
+                                    {item.items.map((tech, i) => (
+                                        <DecoratedBox key={i} className="flex flex-col gap-2 py-4" href={tech.link} target="_blank">
+                                            <div className="flex items-center gap-2">
+                                                {tech.icon}
+                                                <span className="font-bold text-xl">{tech.title}</span>
+                                            </div>
+                                        </DecoratedBox>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        </FadeIn >
                     ))}
                 </div>
             </Container>

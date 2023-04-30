@@ -4,21 +4,26 @@ import Head from "next/head";
 import FrontPageMarquee from "@/components/frontpage/FrontPageMarquee";
 import FrontPageCards from "@/components/frontpage/FrontPageCards";
 import FrontPageTechs from "@/components/frontpage/FrontPageTechs";
-import ContactForm from "@/components/contanct/ContactForm";
-import DecoratedBox from "@/components/shared/DecoratedBox";
-import Container from "@/components/shared/Container";
+import ContactForm from "@/components/contact/ContactForm";
 
 export default function Home() {
   return (
     <>
       <Head>
         <title>Anasayfa</title>
+        <meta name="description" content="Anasayfa" />
       </Head>
       <FadeIn>
         <FrontPageBanner />
+      </FadeIn >
+      <FadeIn>
         <FrontPageMarquee />
+      </FadeIn >
+      <FadeIn>
         <FrontPageCards />
-        <FrontPageTechs />
+      </FadeIn >
+      <FrontPageTechs />
+      <FadeIn>
         <div className="w-full border-y border-cinder-800 bg-cinder-950 bg-opacity-70 px-4 sm:px-6 lg:px-8 relative py-8">
           <h1 className="font-bold lg:text-3xl text-xl text-center mb-4">İletişim</h1>
           <ContactForm />

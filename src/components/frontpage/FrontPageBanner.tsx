@@ -2,6 +2,7 @@ import Link from "next/link";
 import Container from "../shared/Container";
 import DecoratedBox from "../shared/DecoratedBox";
 import { useEffect, useRef, useState } from "react";
+import SocialMedias from "../contact/SocialMedias";
 
 export default function FrontPageBanner() {
 
@@ -55,18 +56,8 @@ export default function FrontPageBanner() {
                             Yazılım geliştiricisiyim. Web ve mobil uygulamalar geliştiriyorum.
                         </p>
                     </div>
-                    <div className="flex gap-4 text-sm">
-                        <Link href="https://github.com/emirhangumus/" className="text-cinder-400 hover:text-cinder-200 transition-colors" target="_blank">
-                            GitHub
-                        </Link>
-                        <Link href="https://www.instagram.com/emirhangms_/" className="text-cinder-400 hover:text-cinder-200 transition-colors" target="_blank">
-                            Instagram
-                        </Link>
-                        <Link href="https://www.linkedin.com/in/emirhangumus/" className="text-cinder-400 hover:text-cinder-200 transition-colors" target="_blank">
-                            LinkedIn
-                        </Link>
-                    </div>
                 </DecoratedBox>
+                <SocialMedias align="left" removeBorder={true} />
             </Container >
         </>
     )
