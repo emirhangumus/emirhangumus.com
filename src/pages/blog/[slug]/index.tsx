@@ -6,12 +6,14 @@ import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 type BlogPostProps = {
     post: PostInterface;
 };
 
 export default function BlogPost({ post }: BlogPostProps) {
+
     return (
         <>
             <Head>
@@ -69,8 +71,9 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
     if (!post || !post.data || !post.success) {
         return {
-            props: {
-                post: null
+            redirect: {
+                destination: "/404",
+                permanent: false
             }
         }
     }
