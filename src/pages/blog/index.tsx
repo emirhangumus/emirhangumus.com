@@ -28,7 +28,8 @@ export default function Blog({ posts }: { posts: PostInterface[] }) {
 }
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-    const posts = await fetch(`${process.env.BASE_URL}/api/blog/flow`)
+
+	const posts = await fetch(`${process.env.BASE_URL}/api/blog/flow`)
         .then(res => res.json())
 
     if (!posts || !posts.data || !posts.success) {
