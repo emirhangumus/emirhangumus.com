@@ -54,7 +54,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   if (!anilar || !anilar.data || !anilar.success) {
     return {
       props: {
-        post: null
+        $anilar: []
       }
     }
   }

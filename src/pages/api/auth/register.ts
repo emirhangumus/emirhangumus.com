@@ -18,20 +18,10 @@ export default async function handler(
 }
 
 const POST = async (req: NextApiRequest, res: NextApiResponse) => {
-    const schema = z.object({
-        email: z.string().email(),
-        password: z.string().min(6),
-    });
-
-    const { email, password } = schema.parse(req.body)
-
-    let hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = await prisma.users.create({
-        data: {
-            email,
-            password: hashedPassword,
-        },
+    res.status(200).json({
+        success: false,
+        message: {
+            message: 'What are you doing here?'
+        }
     })
-    res.json(user)
 }

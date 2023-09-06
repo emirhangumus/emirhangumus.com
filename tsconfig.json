@@ -18,6 +18,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/blog/tools.js", "src/lib/functions/url_slug.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/blog/Tools.ts", "src/lib/functions/url_slug.js"],
   "exclude": ["node_modules"]
 }

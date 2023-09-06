@@ -2,6 +2,7 @@ import { useState } from "react";
 import Text from "@/components/shared/Text";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import type ImageProviderResponse from "@/interfaces/ImageProviderResponse";
 
 export default function NewAniForm() {
 
@@ -28,19 +29,30 @@ export default function NewAniForm() {
         setLoading(true);
 
         const formData = new FormData();
-        formData.append("media", file);
-        formData.append("description", description);
+        formData.append("image", file);
 
-        const headers = new Headers();
-        headers.append('token', Cookies.get("token") || "");
-
-        const options = {
-            method: 'POST',
+        let upload_image: ImageProviderResponse = await fetch(`${process.env.NEXT_PUBLIC_IMAGE_PROVIDER_URL}/api/v1/upload`, {
+            method: "POST",
             body: formData,
-            headers: headers,
-        };
+        }).then(res => res.json());
 
-        const res = await fetch(`/api/anilar`, options);
+        if (!upload_image.success) {
+            setError("Görsel yüklenirken bir hata oluştu.");
+            return;
+        }
+
+        const res = await fetch(`/api/anilar`, {
+            method: "POST",
+            body: JSON.stringify({
+                description: description,
+                path: upload_image.data.path,
+                blurhash: upload_image.data.blurhash,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+                "token": Cookies.get("token") || "",
+            },
+        });
 
         if (res.status === 200) {
             setSuccess(true);

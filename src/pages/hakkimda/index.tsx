@@ -5,7 +5,6 @@ import Text from "@/components/shared/Text";
 import Arrow from "@/components/svg/Arrow";
 import Head from "next/head";
 import Link from "next/link";
-import ReactHtmlParser from 'react-html-parser';
 
 const about_texts = [
     `
@@ -37,9 +36,7 @@ export default function Hakkimda() {
                     {about_texts.map((text, index) => (
                         <FadeIn delay={(index + 1) * 300} key={index}>
                             <DecoratedBox className="flex flex-col gap-4 py-4">
-                                <p className="text-cinder-400 lg:text-base text-sm">
-                                    {ReactHtmlParser(text)}
-                                </p>
+                                <p className="text-cinder-400 lg:text-base text-sm" dangerouslySetInnerHTML={{ __html: text }} />
                             </DecoratedBox>
                         </FadeIn>
                     ))}

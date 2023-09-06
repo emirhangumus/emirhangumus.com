@@ -6,7 +6,7 @@ COPY package*.json ./
 
 COPY . .
 
-RUN npm install --force
+RUN npm ci --force
 
 EXPOSE 3000
 
@@ -23,4 +23,4 @@ VOLUME /app/.next/cache/images
 
 VOLUME [ "/app/public/uploads" ]
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]

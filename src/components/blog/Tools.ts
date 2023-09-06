@@ -1,11 +1,11 @@
-// tools.js
+// @ts-nocheck
 import Embed from "@editorjs/embed";
 import Table from "@editorjs/table";
 import Paragraph from "@editorjs/paragraph";
 import List from "@editorjs/list";
 import Warning from "@editorjs/warning";
 import LinkTool from "@editorjs/link";
-import Image from "@editorjs/image";
+import ImageTool from "@editorjs/image";
 import Header from "@editorjs/header";
 import Quote from "@editorjs/quote";
 import Marker from "@editorjs/marker";
@@ -14,6 +14,7 @@ import Delimiter from "@editorjs/delimiter";
 import InlineCode from "@editorjs/inline-code";
 import CodeBox from "@bomdi/codebox";
 import Cookies from "js-cookie";
+import imageUrl from "@/lib/functions/imageUrl";
 
 export const EDITOR_JS_TOOLS = {
     paragraph: Paragraph,
@@ -31,17 +32,16 @@ export const EDITOR_JS_TOOLS = {
         },
     },
     image: {
-        class: Image,
+        class: ImageTool,
         config: {
             uploader: {
-                uploadByFile: async (file) => {
+                uploadByFile: async (file: File) => {
+                    console.log("file", file);
+
                     const formData = new FormData();
-                    formData.append("media", file);
-                    return fetch("/api/blog/uploadFile", {
+                    formData.append("image", file);
+                    return fetch(process.env.NEXT_PUBLIC_IMAGE_PROVIDER_URL + "/api/v1/upload", {
                         method: "POST",
-                        headers: {
-                            token: Cookies.get("token") || "",
-                        },
                         body: formData,
                     })
                         .then((response) => response.json())
@@ -50,7 +50,7 @@ export const EDITOR_JS_TOOLS = {
                                 return {
                                     success: 1,
                                     file: {
-                                        url: result.data.url,
+                                        url: imageUrl(result.data.path.replace(/\\/g, "/")),
                                     },
                                 };
                             }
@@ -77,8 +77,7 @@ export const EDITOR_JS_TOOLS = {
     codeBox: {
         class: CodeBox,
         config: {
-            themeURL:
-                "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/dracula.min.css", // Optional
+            themeURL: "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/dracula.min.css", // Optional
             themeName: "atom-one-dark", // Optional
             useDefaultTheme: "light", // Optional. This also determines the background color of the language select drop-down
         },

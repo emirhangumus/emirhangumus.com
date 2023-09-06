@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import Switch from "../shared/Switch";
+import imageUrl from "@/lib/functions/imageUrl";
 
 type BlogCardProps = {
     post: PostInterface;
@@ -35,7 +36,7 @@ export default function BlogCard({ post, availableButtons, callback }: BlogCardP
                 <div className="flex md:flex-row flex-col gap-2 items-stretch">
                     <div className="relative aspect-square h-24 w-24 rounded-md overflow-hidden">
                         <Image
-                            src={post.image.image_url}
+                            src={imageUrl(post.image.image_url)}
                             alt={post.title}
                             fill={true}
                             className="object-cover h-full w-full"

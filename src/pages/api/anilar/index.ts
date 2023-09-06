@@ -1,10 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { validateUser } from '@/lib/functions/api/validateUser'
-import { getFilePath } from '@/lib/getFilePath'
-import { parseForm } from '@/lib/parse-form'
 import prisma from '@/lib/prisma'
-import formidable from 'formidable'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { z } from 'zod'
 
 export default async function handler(
     req: NextApiRequest,
@@ -31,6 +29,14 @@ const GET = async (req: NextApiRequest, res: NextApiResponse) => {
             orderBy: {
                 created_at: 'desc',
             },
+            include: {
+                image: {
+                    select: {
+                        image_url: true,
+                        image_blurhash: true,
+                    },
+                },
+            }
         });
         res.status(200).json({ success: true, data: anilar })
     } catch (error: any) {
@@ -46,19 +52,34 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
             return res.status(401).json({ success: false, message: "Unauthorized" })
         }
 
-        const { fields, files } = await parseForm(req, {
-            get: 'shortPath',
+        const schema = z.object({
+            path: z.string(),
+            blurhash: z.string(),
+            description: z.string(),
         });
 
-        const file = files.media;
-        let url = Array.isArray(file) ? file.map((f) => f.filepath) : file.filepath;
+        const { path, blurhash, description } = schema.parse(req.body)
 
-        url = getFilePath(Array.isArray(url) ? url[0] : url);
+        if (!path || !blurhash || !description) {
+            return res.status(400).json({ success: false, message: "Path, blurhash and description are required" })
+        }
+
+        let saveImage = await prisma.images.create({
+            data: {
+                user_id: isOkay.user?.user_id as number,
+                image_url: path,
+                image_blurhash: blurhash,
+            },
+        });
+
+        if (!saveImage) {
+            return res.status(500).json({ success: false, message: "Something went wrong" })
+        }
 
         let momentCreated = await prisma.anilar.create({
             data: {
-                image: Array.isArray(url) ? url[0] : url,
-                description: fields.description as string,
+                image_id: saveImage.id as number,
+                description: description,
                 user_id: isOkay.user?.user_id as number,
             },
         });
@@ -130,6 +151,6 @@ const DELETE = async (req: NextApiRequest, res: NextApiResponse) => {
 
 export const config = {
     api: {
-        bodyParser: false,
+        bodyParser: true,
     },
 };

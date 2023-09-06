@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "rhel-openssl-1.0.x", "linux-musl-openssl-3.0.x"]
 }
 
@@ -37,15 +37,18 @@ model images {
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
   posts          posts[]
+  anilar         anilar[]
 }
 
 model anilar {
   id          Int      @id @default(autoincrement())
   user_id     Int
   description String
-  image       String
+  image_id    Int
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
+
+  image images @relation(fields: [image_id], references: [id])
 }
 
 model posts {

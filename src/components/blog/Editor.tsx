@@ -1,5 +1,5 @@
 import { createReactEditorJS } from 'react-editor-js'
-import { EDITOR_JS_TOOLS } from './tools';
+import { EDITOR_JS_TOOLS } from './Tools';
 import { useCallback, useRef } from 'react';
 import { EditorCoreInterface } from '@/interfaces/EditorCoreInterface';
 import { OutputData } from '@editorjs/editorjs';

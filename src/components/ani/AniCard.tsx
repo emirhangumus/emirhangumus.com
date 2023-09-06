@@ -1,4 +1,5 @@
 import { Ani } from "@/interfaces/AniInterface"
+import imageUrl from "@/lib/functions/imageUrl"
 import Image from "next/image"
 
 type Props = {
@@ -14,7 +15,7 @@ export default function AniCard({ ani }: Props) {
                 </p>
             </div>
             <img
-                src={ani.image}
+                src={imageUrl(ani.image.image_url)}
                 alt={ani.description}
                 height={480}
                 width={480}

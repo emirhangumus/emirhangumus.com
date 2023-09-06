@@ -1,6 +1,7 @@
 import { RenderContent } from "@/components/blog/RenderContent";
 import Container from "@/components/shared/Container";
 import { PostInterface } from "@/interfaces/PostInterface";
+import imageUrl from "@/lib/functions/imageUrl";
 import type { DataProp } from "editorjs-blocks-react-renderer";
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
@@ -35,7 +36,7 @@ export default function BlogPost({ post }: BlogPostProps) {
                     </h2>
                     <div className="aspect-video h-full w-full mx-auto relative rounded-lg overflow-hidden">
                         <Image
-                            src={post.image.image_url}
+                            src={imageUrl(post.image.image_url)}
                             alt={post.title}
                             fill={true}
                             className="object-cover h-full w-full"

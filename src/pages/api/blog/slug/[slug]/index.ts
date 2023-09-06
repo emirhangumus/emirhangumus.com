@@ -67,7 +67,11 @@ async function GET(req: NextApiRequest, res: NextApiResponse) {
 
         res.status(200).json({
             success: true,
-            data: postWithTags,
+            data: {
+                ...postWithTags,
+                // @ts-ignore
+                content: JSON.parse(postWithTags.content),
+            },
         })
     }
     catch (err: any) {

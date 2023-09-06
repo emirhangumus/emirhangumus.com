@@ -14,6 +14,7 @@ export default function Edit({ post }: Props) {
         <>
             <Container>
                 <TitleWithBackButton backUrl="/dashboard/blog" text="Blog Yazısı Düzenle" />
+                <pre>{JSON.stringify(post, null, 2)}</pre>
                 <BlogEditor data={post} />
             </Container>
         </>

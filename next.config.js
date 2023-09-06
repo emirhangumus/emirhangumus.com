@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: false,
     distDir: "build",
     images: {
-        domains: ["localhost", "res.cloudinary.com"],
+        domains: ["localhost"],
         //formats: ["image/webp", "image/png", "image/jpeg", "image/gif"],
     },
     output: "standalone",

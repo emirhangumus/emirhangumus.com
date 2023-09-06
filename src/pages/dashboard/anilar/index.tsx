@@ -15,6 +15,8 @@ export default function Anilar() {
     const [loading, setLoading] = useState(true)
     const [anilar, setAnilar] = useState<Ani[]>([])
 
+
+
     useEffect(() => {
         const fetchAnilar = async () => {
             const res = await fetch('/api/anilar')

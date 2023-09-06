@@ -1,6 +1,5 @@
 import { validateUser } from '@/lib/functions/api/validateUser'
 import { url_slug } from '@/lib/functions/url_slug'
-import { parseForm } from '@/lib/parse-form'
 import prisma from '@/lib/prisma'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { z } from 'zod'
@@ -64,33 +63,36 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
         if (req.query.slug) {
             schema = z.object({
                 title: z.string().min(1),
-                content: z.string(),
-                tags: z.string().min(1),
-                media: z.string().optional(),
+                content: z.object({
+                    blocks: z.any(),
+                    time: z.number().min(1),
+                    version: z.string().min(1),
+                }),
+                image_url: z.string().optional(),
+                image_blurhash: z.string().optional(),
+                tags: z.any(),
             })
         }
         else {
             schema = z.object({
                 title: z.string().min(1),
-                content: z.string(),
-                tags: z.string().min(1),
-                media: z.string().min(1),
+                content: z.object({
+                    blocks: z.any(),
+                    time: z.number().min(1),
+                    version: z.string().min(1),
+                }),
+                image_url: z.string().min(1),
+                image_blurhash: z.string().min(1),
+                tags: z.any(),
             })
         }
-
         const isOkay = await validateUser(req, res);
 
         if (!isOkay.isLogged) {
             return res.status(401).json({ success: false, message: "Unauthorized" })
         }
 
-        const { fields, files } = await parseForm(req, {
-            get: "id"
-        });
-
-        const { title, content, tags, media } = fields;
-
-        schema.parse({ title, content, tags, media });
+        const { title, content, image_blurhash, image_url, tags } = schema.parse(JSON.parse(req.body));
 
         let tagsArray: string[] = [];
 
@@ -123,6 +125,17 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
         }));
 
         let post;
+        let saveImage;
+
+        if (image_url && image_blurhash) {
+            saveImage = await prisma.images.create({
+                data: {
+                    user_id: isOkay.user?.user_id as number,
+                    image_url: image_url,
+                    image_blurhash: image_blurhash,
+                },
+            });
+        }
 
         if (req.query.slug) {
             post = await prisma.posts.update({
@@ -130,21 +143,21 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
                     slug: req.query.slug as string,
                 },
                 data: {
-                    title: Array.isArray(title) ? title[0] : title,
-                    content: JSON.parse(Array.isArray(content) ? content[0] : content),
+                    title: title,
+                    content: JSON.stringify(content),
                     tag_ids: tagsIdArray,
-                    slug: url_slug(Array.isArray(title) ? title[0] : title, { lower: true }),
-                    image_id: parseInt(Array.isArray(media) ? media[0] : media),
+                    slug: url_slug(title, { lower: true }),
+                    image_id: saveImage ? saveImage.id : undefined,
                 },
             });
         } else {
             post = await prisma.posts.create({
                 data: {
-                    title: Array.isArray(title) ? title[0] : title,
-                    content: JSON.parse(Array.isArray(content) ? content[0] : content),
+                    title: title,
+                    content: JSON.stringify(content),
                     tag_ids: tagsIdArray,
-                    slug: url_slug(Array.isArray(title) ? title[0] : title, { lower: true }),
-                    image_id: parseInt(Array.isArray(media) ? media[0] : media),
+                    slug: url_slug(title, { lower: true }),
+                    image_id: saveImage ? saveImage.id : 0,
                 },
             });
         }
@@ -198,9 +211,3 @@ const DELETE = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(500).json({ success: false, message: error.message })
     }
 }
-
-export const config = {
-    api: {
-        bodyParser: false,
-    },
-};

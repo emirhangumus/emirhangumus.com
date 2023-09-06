@@ -1,5 +1,7 @@
 import { EditorCoreInterface } from "@/interfaces/EditorCoreInterface";
+import type ImageProviderResponse from "@/interfaces/ImageProviderResponse";
 import { PostInterface } from "@/interfaces/PostInterface";
+import imageUrl from "@/lib/functions/imageUrl";
 import { url_slug } from "@/lib/functions/url_slug";
 import type { OutputData } from "@editorjs/editorjs";
 import Cookies from "js-cookie";
@@ -47,13 +49,21 @@ export default function BlogEditor({ data }: Props) {
         if (title === '') return;
         if (!media && !preview) return;
 
-        const formData = new FormData();
-        formData.append('content', JSON.stringify(content_));
-        formData.append('title', title);
-        formData.append('tags', JSON.stringify(tags));
+        let upload_image: ImageProviderResponse | null = null;
 
         if (media) {
-            formData.append('media', media);
+            const fd = new FormData();
+            fd.append('image', media);
+
+            upload_image = await fetch(process.env.NEXT_PUBLIC_IMAGE_PROVIDER_URL + '/api/v1/upload', {
+                method: 'POST',
+                body: fd
+            }).then(res => res.json());
+
+            if (upload_image && !upload_image.success) {
+                alert(upload_image.error);
+                return;
+            }
         }
 
         const res = await fetch('/api/blog' + (data ? `?slug=${data.slug}` : ''), {
@@ -61,7 +71,13 @@ export default function BlogEditor({ data }: Props) {
             headers: {
                 'token': Cookies.get('token') || '',
             },
-            body: formData
+            body: JSON.stringify({
+                content: content_,
+                title,
+                tags,
+                image_url: upload_image ? upload_image.data.path : data?.image.image_url,
+                image_blurhash: upload_image ? upload_image.data.blurhash : data?.image.image_blurhash
+            })
         }).then(res => res.json());
 
         if (res.success) {
@@ -121,7 +137,7 @@ export default function BlogEditor({ data }: Props) {
                 <div>
                     {preview ? (
                         <label htmlFor="media" className="w-full h-64 bg-cinder-900 border border-cinder-700 rounded flex justify-center items-center cursor-pointer">
-                            <img src={preview} alt="preview" className="h-full w-full object-contain" />
+                            <img src={imageUrl(preview)} alt="preview" className="h-full w-full object-contain" />
                         </label>
                     ) : (
                         <label htmlFor="media" className="w-full py-2 bg-cinder-900 border border-cinder-700 rounded flex justify-center items-center cursor-pointer">
