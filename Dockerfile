@@ -15,6 +15,8 @@ RUN npm uninstall bcrypt --force
 RUN npm install bcryptjs --force
 RUN npm install bcrypt --force
 
+RUN npm run build
+
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
