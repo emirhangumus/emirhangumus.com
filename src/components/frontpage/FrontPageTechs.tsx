@@ -132,7 +132,9 @@ export default function FrontPageTechs() {
     return (
         <>
             <Container className="flex flex-col my-8">
-                <h1 className="font-bold lg:text-3xl text-xl">Kullandığım <span className="font-normal">Teknolojiler</span></h1>
+                <FadeIn>
+                    <h1 className="font-bold lg:text-3xl text-xl">Kullandığım <span className="font-normal">Teknolojiler</span></h1>
+                </FadeIn>
                 <div className="grid lg:gap-8 gap-4">
                     {items.map((item, i) => (
                         <FadeIn key={i}>

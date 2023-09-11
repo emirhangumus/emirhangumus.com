@@ -31,7 +31,7 @@ export default function Hakkimda() {
                 <title>Hakkımda | Emirhan Gümüş</title>
             </Head>
             <Container>
-                <div className="flex flex-col gap-4 pb-4">
+                <div className="flex flex-col gap-4 pb-12">
                     <Text level="h1">Hakkımda</Text>
                     {about_texts.map((text, index) => (
                         <FadeIn delay={(index + 1) * 300} key={index}>

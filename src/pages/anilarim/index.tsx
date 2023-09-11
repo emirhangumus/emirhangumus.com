@@ -6,6 +6,7 @@ import Text from "@/components/shared/Text";
 import { anilarAtom } from "@/lib/atoms/anilarAtom";
 import { useAtom } from "jotai";
 import type { GetServerSidePropsContext } from "next";
+import { Head } from "next/document";
 import { useEffect, useState } from "react";
 
 export default function Anilarim({ $anilar }: { $anilar: any[] }) {
@@ -21,6 +22,9 @@ export default function Anilarim({ $anilar }: { $anilar: any[] }) {
 
   return (
     <>
+      <Head>
+        <title>Anılarım | Emirhan Gümüş</title>
+      </Head>
       <Container>
         <div className="flex flex-col gap-2">
           <Text level="h1">Anılarım</Text>
