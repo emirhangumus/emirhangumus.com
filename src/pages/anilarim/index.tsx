@@ -6,7 +6,7 @@ import Text from "@/components/shared/Text";
 import { anilarAtom } from "@/lib/atoms/anilarAtom";
 import { useAtom } from "jotai";
 import type { GetServerSidePropsContext } from "next";
-import { Head } from "next/document";
+import Head from "next/head";
 import { useEffect, useState } from "react";
 
 export default function Anilarim({ $anilar }: { $anilar: any[] }) {

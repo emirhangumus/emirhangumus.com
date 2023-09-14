@@ -3,7 +3,7 @@ import SocialMedias from "@/components/contact/SocialMedias";
 import Container from "@/components/shared/Container";
 import DecoratedBox from "@/components/shared/DecoratedBox";
 import Text from "@/components/shared/Text";
-import { Head } from "next/document";
+import Head from "next/head"
 
 export default function Iletisim() {
     return (
