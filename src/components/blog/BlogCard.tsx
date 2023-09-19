@@ -32,6 +32,7 @@ export default function BlogCard({ post, availableButtons, callback }: BlogCardP
 
     return (
         <>
+            {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
             <Link href={`/blog/${post.slug}`} className="flex flex-col gap-2 hover:bg-cinder-950 hover:bg-opacity-30 border border-transparent hover:border-cinder-900 transition-all rounded-lg cursor-pointer overflow-hidden p-1">
                 <div className="flex md:flex-row flex-col gap-2 items-stretch">
                     <div className="relative aspect-square h-24 w-24 rounded-md overflow-hidden">
@@ -46,11 +47,13 @@ export default function BlogCard({ post, availableButtons, callback }: BlogCardP
                         <div className="flex-1">
                             <h2 className="text-xl font-bold">{post.title}</h2>
                         </div>
-                        <p className="text-sm text-gray-500">{new Date(post.created_at).toLocaleDateString('tr-TR', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        })}</p>
+                        <div className="flex gap-2 justify-between items-center">
+                            <p className="text-sm text-gray-500">{new Date(post.created_at).toLocaleDateString('tr-TR', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            })}</p>
+                        </div>
                     </div>
 
                 </div>

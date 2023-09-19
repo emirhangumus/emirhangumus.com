@@ -16,18 +16,32 @@ interface SessionResponse extends Session {
     message: string;
 };
 
-
-export async function getSession(ctx: GetServerSidePropsContext) {
-    let g = ctx.req.headers.cookie?.split('=');
-
-    // map it value pair with odd index as key and even index as value with typescript
-    let h = g?.reduce((acc, val, i) => {
-        if (g === undefined) return ({} as { [key: string]: string });
-        if (i % 2 === 0) {
-            acc[val] = g[i + 1];
-        }
+const parseCookies = (cookiesString: string) => {
+    return cookiesString.split(';').reduce((acc, cookie) => {
+        const [key, value] = cookie.split('=');
+        acc[key.trim()] = decodeURIComponent(value);
         return acc;
     }, {} as { [key: string]: string });
+}
+
+export async function getSession(ctx: GetServerSidePropsContext) {
+    let g = ctx.req.headers.cookie;
+
+    if (!g) {
+        return {
+            success: false,
+            message: "No authorization header found",
+        }
+    }
+
+    let h = parseCookies(g);
+
+    if (!h?.token) {
+        return {
+            success: false,
+            message: "No authorization header found",
+        }
+    }
 
     let r = await fetch(`${process.env.BASE_URL}/api/auth/session`, {
         method: "GET",

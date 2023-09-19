@@ -25,7 +25,7 @@ function Content({ align = "center" }: Props) {
         <div className={`flex flex-col gap-2 ${align === "center" ? "lg:items-center" : align === "left" ? "lg:items-start" : "lg:items-end"} items-center`}>
             <div className="flex gap-2 py-4">
                 {socialMedia.map((media, index) => (
-                    <Link href={media.url} key={index} target="_blank" rel="noopener noreferrer">
+                    <Link href={media.url} key={index} target="_blank" rel="noopener noreferrer" aria-label={media.name + ' icon'}>
                         {media.icon}
                     </Link>
                 ))}

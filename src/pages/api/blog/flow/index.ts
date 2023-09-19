@@ -16,26 +16,56 @@ export default async function handler(
 
 const GET = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
+
+        const { limit, skip } = req.query;
+
         const posts = await prisma.posts.findMany({
-            include: {
+            select: {
                 image: true,
+                id: true,
+                created_at: true,
+                slug: true,
+                status: true,
+                tag_ids: true,
+                updated_at: true,
+                title: true,
+                image_id: true,
             },
             orderBy: {
                 created_at: 'desc',
             },
             where: {
                 status: 'PUBLISHED'
-            }
+            },
+            take: Number(limit) || 10,
+            skip: Number(skip) || 0,
         });
 
         if (!posts) {
             return res.status(500).json({ success: false, message: "Something went wrong" })
         }
 
+        const total_posts = await prisma.posts.count({
+            where: {
+                status: 'PUBLISHED'
+            }
+        });
+
+        if (!total_posts) {
+            return res.status(500).json({ success: false, message: "Something went wrong" })
+        }
+
+        const currentPage = Number(limit) / Number(skip);
+
         res.status(200).json({
             success: true,
             message: "Posts fetched successfully",
-            data: posts,
+            data: {
+                posts,
+                page: currentPage,
+                limit: Number(limit) || 10,
+                total: total_posts,
+            },
         });
     } catch (error: any) {
         console.log(error);

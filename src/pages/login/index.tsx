@@ -43,6 +43,7 @@ export default function Login() {
 
         if (result.success) {
             Cookie.set("token", result.token);
+            Cookie.set("imageToken", result.imageToken);
 
             setUser({
                 id: result.user.id,

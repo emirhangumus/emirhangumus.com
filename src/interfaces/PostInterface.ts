@@ -26,3 +26,10 @@ export interface PostInterface {
         updated_at: string;
     }[];
 }
+
+export interface PostInterfaceWithPagination {
+    posts: PostInterface[];
+    limit: number;
+    page: number;
+    total: number;
+}

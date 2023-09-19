@@ -57,7 +57,7 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
             email: user.email,
             name: user.name,
             role: user.role,
-        }, process.env.JWT_SECRET ?? "emirhangumus", { expiresIn: '4h' }, async (err, token) => {
+        }, process.env.JWT_SECRET ?? "emirhangumus", { expiresIn: '12h' }, async (err, token) => {
             if (err) {
                 res.status(500).json({
                     success: false,
@@ -80,21 +80,37 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
                 }
             })
 
-            let session = await prisma.sessions.create({
-                data: {
-                    token,
-                    user_id: user.id,
-                    expire: new Date(Date.now() + 1000 * 60 * 60 * 4), // 4 hours
-                }
-            })
+            jwt.sign({}, process.env.IMAGE_JWT_SECRET ?? "emirhangumus", { expiresIn: '12h' }, async (err, imageToken) => {
 
-            res.status(200).json({
-                success: true, message: 'Giriş başarılı.', token, session, user: {
-                    id: user.id,
-                    email: user.email,
-                    name: user.name,
-                    role: user.role,
+                if (err) {
+                    res.status(500).json({
+                        success: false,
+                        message: err.message
+                    })
+                    return
                 }
+
+                let session = await prisma.sessions.create({
+                    data: {
+                        token,
+                        user_id: user.id,
+                        expire: new Date(Date.now() + 1000 * 60 * 60 * 12), // 12 hours
+                    }
+                })
+
+                res.status(200).json({
+                    success: true,
+                    message: 'Giriş başarılı.',
+                    token,
+                    session,
+                    imageToken,
+                    user: {
+                        id: user.id,
+                        email: user.email,
+                        name: user.name,
+                        role: user.role,
+                    }
+                })
             })
         })
     } catch (error: any) {

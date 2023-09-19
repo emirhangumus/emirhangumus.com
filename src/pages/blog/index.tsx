@@ -1,11 +1,13 @@
 import BlogContent from "@/components/blog/BlogContent";
+import Pagination from "@/components/blog/Pagination";
 import Container from "@/components/shared/Container";
 import Text from "@/components/shared/Text";
-import { PostInterface } from "@/interfaces/PostInterface";
+import { PostInterfaceWithPagination } from "@/interfaces/PostInterface";
 import type { GetServerSidePropsContext } from "next";
 import Head from "next/head";
+import router from "next/router";
 
-export default function Blog({ posts }: { posts: PostInterface[] }) {
+export default function Blog({ data }: { data: PostInterfaceWithPagination }) {
     return (
         <>
             <Head>
@@ -19,7 +21,22 @@ export default function Blog({ posts }: { posts: PostInterface[] }) {
                     </Text>
                     <hr />
                     <div className="mt-4">
-                        <BlogContent posts={posts} />
+                        <BlogContent posts={data.posts} />
+                    </div>
+                    <div className="mt-4">
+                        <p className="text-center text-gray-300 mb-2">
+                            Toplam <span
+                                className="text-white font-bold"
+                            >{data.total}</span> yazı bulundu.
+                        </p>
+                        <Pagination
+                            current={data.page}
+                            total={data.total}
+                            limit={data.limit}
+                            callback={(page: string) => {
+                                router.push(`/blog?page=${page}`)
+                            }}
+                        />
                     </div>
                 </div>
             </Container>
@@ -29,20 +46,34 @@ export default function Blog({ posts }: { posts: PostInterface[] }) {
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
-	const posts = await fetch(`${process.env.BASE_URL}/api/blog/flow`)
+    const page = ctx.query.page || 1
+    const limit = 10
+
+    if (Number(page) < 1) {
+        return {
+            redirect: {
+                destination: '/blog?page=1',
+                permanent: false
+            }
+        }
+    }
+
+    const skip = (Number(page) - 1) * limit
+
+    const posts = await fetch(`${process.env.BASE_URL}/api/blog/flow?skip=${skip}&limit=${limit}`)
         .then(res => res.json())
 
     if (!posts || !posts.data || !posts.success) {
         return {
             props: {
-                post: null
+                data: null
             }
         }
     }
 
     return {
         props: {
-            posts: posts.data
+            data: posts.data
         }
     }
 }

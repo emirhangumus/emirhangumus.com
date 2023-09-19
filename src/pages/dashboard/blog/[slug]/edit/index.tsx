@@ -14,7 +14,6 @@ export default function Edit({ post }: Props) {
         <>
             <Container>
                 <TitleWithBackButton backUrl="/dashboard/blog" text="Blog Yazısı Düzenle" />
-                <pre>{JSON.stringify(post, null, 2)}</pre>
                 <BlogEditor data={post} />
             </Container>
         </>
@@ -43,7 +42,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
         };
     }
 
-    let post = await fetch(`${process.env.BASE_URL}/api/blog/slug/${slug}`).then((res) => res.json());
+    let post = await fetch(`${process.env.BASE_URL}/api/blog/edit/${slug}`).then((res) => res.json());
 
     if (!post || !post.data || !post.success) {
         return {

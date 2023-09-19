@@ -26,7 +26,7 @@ const GET = async (req: NextApiRequest, res: NextApiResponse) => {
 
         const { token } = schema.parse(req.headers)
 
-        return new Promise<void>((resolve, reject) => {
+        return await new Promise<void>((resolve, reject) => {
             jwt.verify(
                 token,
                 process.env.JWT_SECRET ?? "emirhangumus",
@@ -34,7 +34,7 @@ const GET = async (req: NextApiRequest, res: NextApiResponse) => {
                     if (err) {
                         res.status(401).json({
                             success: false,
-                            message: 'Invalid token'
+                            message: 'Invalid token - 1'
                         })
                         return
                     }
@@ -42,7 +42,7 @@ const GET = async (req: NextApiRequest, res: NextApiResponse) => {
                     if (!decoded) {
                         res.status(401).json({
                             success: false,
-                            message: 'Invalid token'
+                            message: 'Invalid token - 2'
                         })
                         return
                     }

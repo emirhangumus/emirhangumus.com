@@ -57,6 +57,9 @@ export default function BlogEditor({ data }: Props) {
 
             upload_image = await fetch(process.env.NEXT_PUBLIC_IMAGE_PROVIDER_URL + '/api/v1/upload', {
                 method: 'POST',
+                headers: {
+                    "authorization": `Bearer ${Cookies.get('imageToken') || ''}`,
+                },
                 body: fd
             }).then(res => res.json());
 
