@@ -19,6 +19,7 @@ import PrismaSVG from "../svg/brands/PrismaSVG";
 import KnexSVG from "../svg/brands/KnexSVG";
 import FigmaSVG from "../svg/brands/FigmaSVG";
 import FadeIn from "../animations/FadeIn";
+import SvelteSVG from "../svg/brands/Svelte";
 
 const items = [
     {
@@ -30,19 +31,29 @@ const items = [
                 link: "https://developer.mozilla.org/en-US/docs/Web/HTML",
             },
             {
-                icon: <CSSSVG className="[&_*]:fill-white" />,
+                icon: <CSSSVG className="[&_*]:fill-cinder-200" />,
                 title: "CSS",
                 link: "https://developer.mozilla.org/en-US/docs/Web/CSS",
             },
             {
-                icon: <ReactSVG className="[&_*]:fill-white" />,
+                icon: <ReactSVG className="[&_*]:fill-cinder-200" />,
                 title: "React",
                 link: "https://react.dev/",
             },
             {
-                icon: <NEXTJSSVG className="[&_*]:fill-white" />,
+                icon: <NEXTJSSVG className="[&_*]:fill-cinder-200" />,
                 title: "Next.js",
                 link: "https://nextjs.org/",
+            },
+            {
+                icon: <SvelteSVG className="[&_*]:fill-cinder-200" />,
+                title: "Svelte",
+                link: "https://svelte.dev/",
+            },
+            {
+                icon: <SvelteSVG className="[&_*]:fill-cinder-200" />,
+                title: "Svelte Kit",
+                link: "https://kit.svelte.dev/",
             },
             {
                 icon: <TailwindSVG className="[&_*]:fill-cinder-200" />,
