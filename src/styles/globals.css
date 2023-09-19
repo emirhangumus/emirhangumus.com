@@ -98,6 +98,15 @@ body:not(.codex-editor *) {
     @apply mb-4 tracking-wide;
 }
 
+.blockRenderer ul,
+.blockRenderer ol {
+    @apply mb-4 pl-4;
+}
+
+.blockRenderer li {
+    @apply mb-2;
+}
+
 .hljs {
     display: block;
     overflow-x: auto;
