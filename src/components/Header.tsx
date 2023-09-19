@@ -69,7 +69,7 @@ export default function Header() {
                         <Link href="/" className="text-2xl font-bold group">
                             <div className="flex gap-4 items-center">
                                 <div className="relative aspect-square lg:w-24 lg:h-24 w-16 h-16 rounded-full overflow-hidden outline outline-2 outline-cinder-500">
-                                    <Image src="/me.jpg" alt="Logo" fill={true} />
+                                    <Image src="/me.jpg" alt="Logo" fill={true} sizes="100%" className="object-cover" />
                                 </div>
                                 <div>
                                     <div className="flex flex-col">

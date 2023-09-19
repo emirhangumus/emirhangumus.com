@@ -7,7 +7,6 @@ import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 type BlogPostProps = {
     post: PostInterface;
@@ -22,7 +21,7 @@ export default function BlogPost({ post }: BlogPostProps) {
             </Head>
             <Container>
                 <div className="flex flex-col gap-4 max-w-2xl mx-auto mb-8">
-                    <h2 className="md:text-3xl text-lg font-bold flex md:flex-row flex-col justify-between items-center">
+                    <h1 className="md:text-3xl text-lg font-bold flex md:flex-row flex-col justify-between items-center">
                         <span className="flex-1 block">
                             {post.title}
                         </span>
@@ -33,7 +32,7 @@ export default function BlogPost({ post }: BlogPostProps) {
                                 day: 'numeric'
                             })}
                         </span>
-                    </h2>
+                    </h1>
                     <div className="aspect-video h-full w-full mx-auto relative rounded-lg overflow-hidden">
                         <Image
                             src={imageUrl(post.image.image_url)}
@@ -52,9 +51,9 @@ export default function BlogPost({ post }: BlogPostProps) {
                             ))}
                         </div>
                     ) : null}
-                    <div className="blockRenderer flex flex-col">
+                    <article className="blockRenderer flex flex-col">
                         <RenderContent data={post.content as DataProp} />
-                    </div>
+                    </article>
                 </div>
             </Container>
         </>

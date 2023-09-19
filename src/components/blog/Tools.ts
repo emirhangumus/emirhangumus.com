@@ -17,11 +17,23 @@ import Cookies from "js-cookie";
 import imageUrl from "@/lib/functions/imageUrl";
 
 export const EDITOR_JS_TOOLS = {
-    paragraph: Paragraph,
+    paragraph: {
+        class: Paragraph,
+        inlineToolbar: true,
+    },
     embed: Embed,
-    table: Table,
-    list: List,
-    warning: Warning,
+    table: {
+        class: Table,
+        inlineToolbar: true,
+    },
+    list: {
+        class: List,
+        inlineToolbar: true,
+    },
+    warning: {
+        class: Warning,
+        inlineToolbar: true,
+    },
     linkTool: {
         class: LinkTool,
         config: {
@@ -71,12 +83,30 @@ export const EDITOR_JS_TOOLS = {
             },
         },
     },
-    header: Header,
-    quote: Quote,
-    marker: Marker,
-    checklist: CheckList,
-    delimiter: Delimiter,
-    inlineCode: InlineCode,
+    header: {
+        class: Header,
+        inlineToolbar: true,
+    },
+    quote: {
+        class: Quote,
+        inlineToolbar: true,
+    },
+    marker: {
+        class: Marker,
+        inlineToolbar: true,
+    },
+    checklist: {
+        class: CheckList,
+        inlineToolbar: true,
+    },
+    delimiter: {
+        class: Delimiter,
+        inlineToolbar: true,
+    },
+    inlineCode: {
+        class: InlineCode,
+        inlineToolbar: true,
+    },
     codeBox: {
         class: CodeBox,
         config: {

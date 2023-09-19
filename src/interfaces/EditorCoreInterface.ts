@@ -1,9 +1,8 @@
 import type { OutputData } from "@editorjs/editorjs";
 
 export interface EditorCoreInterface {
-    destroy(): Promise<void>;
-    clear(): Promise<void>;
+    destroy(): void;
+    clear(): void;
     save(): Promise<OutputData>;
     render(data: OutputData): Promise<void>;
-    get dangerouslyLowLevelInstance(): any | null;
 }

@@ -80,8 +80,9 @@ body:not(.codex-editor *) {
     @apply text-sm font-bold;
 }
 
+.codex-editor .inline-code,
 .blockRenderer .inline-code {
-    @apply bg-cinder-800 text-cinder-50 rounded px-1;
+    @apply bg-cinder-700 border-cinder-600 border text-cinder-50 rounded px-1;
 }
 
 .blockRenderer h1,
@@ -241,7 +242,7 @@ body:not(.codex-editor *) {
 }
 
 ::selection {
-    @apply bg-pink-900 text-cinder-50;
+    @apply !bg-pink-900 text-cinder-50;
 }
 
 /* Make clicks pass-through */
@@ -327,12 +328,7 @@ body:not(.codex-editor *) {
 
 .decoratedBox::after {
     content: "";
-    background: linear-gradient(
-        to top,
-        transparent,
-        rgb(190 24 93),
-        transparent
-    );
+    background: linear-gradient(to top, transparent, rgb(190 24 93), transparent);
     height: 50%;
     width: 1px;
     position: absolute;
