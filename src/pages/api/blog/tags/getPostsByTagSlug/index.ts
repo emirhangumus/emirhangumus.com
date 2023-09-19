@@ -47,9 +47,13 @@ const GET = async (req: NextApiRequest, res: NextApiResponse) => {
             tag_ids: {
                 array_contains: tag.id
             },
+            status: 'PUBLISHED',
         },
         include: {
             image: true,
+        },
+        orderBy: {
+            created_at: 'desc',
         },
     })
 

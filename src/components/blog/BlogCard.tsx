@@ -32,10 +32,9 @@ export default function BlogCard({ post, availableButtons, callback }: BlogCardP
 
     return (
         <>
-            {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
             <Link href={`/blog/${post.slug}`} className="flex flex-col gap-2 hover:bg-cinder-950 hover:bg-opacity-30 border border-transparent hover:border-cinder-900 transition-all rounded-lg cursor-pointer overflow-hidden p-1">
                 <div className="flex md:flex-row flex-col gap-2 items-stretch">
-                    <div className="relative aspect-square h-24 w-24 rounded-md overflow-hidden">
+                    <div className="relative md:aspect-square md:h-24 md:w-24 aspect-video w-full rounded-md overflow-hidden">
                         <Image
                             src={imageUrl(post.image.image_url)}
                             alt={post.title}
