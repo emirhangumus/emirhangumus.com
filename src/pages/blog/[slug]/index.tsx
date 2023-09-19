@@ -13,7 +13,6 @@ type BlogPostProps = {
 };
 
 export default function BlogPost({ post }: BlogPostProps) {
-
     return (
         <>
             <Head>

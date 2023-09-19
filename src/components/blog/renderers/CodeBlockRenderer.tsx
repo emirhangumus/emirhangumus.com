@@ -9,7 +9,7 @@ interface CodeBlockData {
 export const CodeBlockRenderer: RenderFn<CodeBlockData> = ({ data, className = "" }) => {
     return (
         <>
-            <pre dangerouslySetInnerHTML={{ __html: data.code }} className={`bg-cinder-900 p-2 rounded ${className}`} ></pre>
+            <pre dangerouslySetInnerHTML={{ __html: data.code }} className={`bg-cinder-900 p-2 rounded mb-4 ${className}`} ></pre>
         </>
     )
 }
