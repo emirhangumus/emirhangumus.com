@@ -1,3 +1,4 @@
+import SessionProvider from "@/components/SessionProvider";
 import BlogEditor from "@/components/blog/BlogEditor";
 import Container from "@/components/shared/Container";
 import TitleWithBackButton from "@/components/shared/TitleWithBackButton";
@@ -12,10 +13,12 @@ type Props = {
 export default function Edit({ post }: Props) {
     return (
         <>
-            <Container>
-                <TitleWithBackButton backUrl="/dashboard/blog" text="Blog Yazısı Düzenle" />
-                <BlogEditor data={post} />
-            </Container>
+            <SessionProvider>
+                <Container>
+                    <TitleWithBackButton backUrl="/dashboard/blog" text="Blog Yazısı Düzenle" />
+                    <BlogEditor data={post} />
+                </Container>
+            </SessionProvider>
         </>
     );
 }

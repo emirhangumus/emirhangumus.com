@@ -8,10 +8,11 @@ import type { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 
 export default function Etiket({ posts, tag }: { posts: PostInterface[], tag: TagInterface }) {
+    const title = `#${tag.name.trim()} | Emirhan Gümüş`;
     return (
         <>
             <Head>
-                <title>{'#' + tag.name} | Emirhan Gümüş</title>
+                <title>{title}</title>
             </Head>
             <Container>
                 <Text level="h1">

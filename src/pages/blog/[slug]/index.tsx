@@ -13,10 +13,12 @@ type BlogPostProps = {
 };
 
 export default function BlogPost({ post }: BlogPostProps) {
+    const title = `${post.title.trim()} | Emirhan Gümüş`;
+
     return (
         <>
             <Head>
-                <title>{post.title} | Emirhan Gümüş</title>
+                <title>{title}</title>
             </Head>
             <Container>
                 <div className="flex flex-col gap-4 max-w-2xl mx-auto mb-8">

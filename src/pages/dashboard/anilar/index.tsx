@@ -1,3 +1,4 @@
+import SessionProvider from "@/components/SessionProvider";
 import AniCard from "@/components/ani/AniCard";
 import Container from "@/components/shared/Container";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
@@ -49,34 +50,36 @@ export default function Anilar() {
 
     return (
         <>
-            <Container>
-                <div>
-                    <TitleWithBackButton backUrl="/dashboard" text="Anılar" />
-                    <div className="flex gap-4 mt-4">
-                        <Link href={`/dashboard/anilar/new`} className="bg-cinder-800 hover:bg-cinder-900 px-4 py-0.5 rounded">
-                            <Text>Yeni Anı Yükle</Text>
-                        </Link>
-                    </div>
-                    <div className="mt-4">
-                        {loading ? (
-                            <LoadingSpinner />
-                        ) : (
-                            <div className="grid grid-cols-1 gap-4 max-w-md mx-auto">
-                                {anilar.map((ani) => (
-                                    <div className="p-4 rounded-lg bg-cinder-900" key={ani.id}>
-                                        <div>
-                                            <button className="bg-red-800 hover:bg-red-900 px-4 py-0.5 rounded" onClick={() => deleteAni(ani.id)}>
-                                                <Text>Sil</Text>
-                                            </button>
+            <SessionProvider>
+                <Container>
+                    <div>
+                        <TitleWithBackButton backUrl="/dashboard" text="Anılar" />
+                        <div className="flex gap-4 mt-4">
+                            <Link href={`/dashboard/anilar/new`} className="bg-cinder-800 hover:bg-cinder-900 px-4 py-0.5 rounded">
+                                <Text>Yeni Anı Yükle</Text>
+                            </Link>
+                        </div>
+                        <div className="mt-4">
+                            {loading ? (
+                                <LoadingSpinner />
+                            ) : (
+                                <div className="grid grid-cols-1 gap-4 max-w-md mx-auto">
+                                    {anilar.map((ani) => (
+                                        <div className="p-4 rounded-lg bg-cinder-900" key={ani.id}>
+                                            <div>
+                                                <button className="bg-red-800 hover:bg-red-900 px-4 py-0.5 rounded" onClick={() => deleteAni(ani.id)}>
+                                                    <Text>Sil</Text>
+                                                </button>
+                                            </div>
+                                            <AniCard key={ani.id} ani={ani} />
                                         </div>
-                                        <AniCard key={ani.id} ani={ani} />
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
-                </div>
-            </Container>
+                </Container>
+            </SessionProvider>
         </>
     );
 }

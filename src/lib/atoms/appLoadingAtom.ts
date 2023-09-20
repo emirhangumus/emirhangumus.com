@@ -5,4 +5,4 @@ type Loading = {
     message?: string
 }
 
-export const appLoadingAtom = atom<Loading>({ loading: true, message: 'Loading...' });
+export const appLoadingAtom = atom<Loading>({ loading: false, message: 'Loading...' });

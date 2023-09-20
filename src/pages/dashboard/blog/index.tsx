@@ -1,3 +1,4 @@
+import SessionProvider from "@/components/SessionProvider";
 import AniCard from "@/components/ani/AniCard";
 import BlogCard from "@/components/blog/BlogCard";
 import Container from "@/components/shared/Container";
@@ -41,30 +42,32 @@ export default function Blog() {
 
     return (
         <>
-            <Container>
-                <TitleWithBackButton backUrl="/dashboard" text="Blog" />
-                <div className="flex gap-4 mt-4">
-                    <Link href={`/dashboard/blog/new`} className="bg-cinder-800 hover:bg-cinder-900 px-4 py-0.5 rounded">
-                        <Text>Yeni Yazı</Text>
-                    </Link>
-                </div>
-                <div className="my-4">
-                    {loading ? (
-                        <LoadingSpinner />
-                    ) : (
-                        <div className="flex flex-col">
-                            {posts.map((post, index) => (
-                                <div key={index}>
-                                    <BlogCard post={post} availableButtons={true} callback={deletePostCB} />
-                                    {index !== posts.length - 1 && (
-                                        <Divider />
-                                    )}
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
-            </Container>
+            <SessionProvider>
+                <Container>
+                    <TitleWithBackButton backUrl="/dashboard" text="Blog" />
+                    <div className="flex gap-4 mt-4">
+                        <Link href={`/dashboard/blog/new`} className="bg-cinder-800 hover:bg-cinder-900 px-4 py-0.5 rounded">
+                            <Text>Yeni Yazı</Text>
+                        </Link>
+                    </div>
+                    <div className="my-4">
+                        {loading ? (
+                            <LoadingSpinner />
+                        ) : (
+                            <div className="flex flex-col">
+                                {posts.map((post, index) => (
+                                    <div key={index}>
+                                        <BlogCard post={post} availableButtons={true} callback={deletePostCB} />
+                                        {index !== posts.length - 1 && (
+                                            <Divider />
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </Container>
+            </SessionProvider>
         </>
     );
 }
