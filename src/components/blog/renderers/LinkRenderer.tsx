@@ -42,7 +42,7 @@ export const LinkRenderer: RenderFn<LinkData> = ({ data, className = "" }) => {
                 )}
                 {data.meta.image && (
                     <div
-                        className="absolute inset-0 w-full h-full object-cover rounded-lg bg-zinc-900 opacity-5"
+                        className="absolute inset-0 w-full h-full object-cover rounded-lg bg-zinc-900 opacity-40"
                     >
                         <img
                             src={data.meta.image.url}

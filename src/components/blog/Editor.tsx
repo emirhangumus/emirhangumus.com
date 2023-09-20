@@ -28,10 +28,6 @@ export default function Editor({ initSave, content }: Props) {
             };
             initSave(editorCore_.current);
         });
-
-        return () => {
-            editor.destroy();
-        };
     }, []);
 
     return (
