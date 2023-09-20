@@ -25,7 +25,7 @@ export default function Edit({ post }: Props) {
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     const session = await getSession(ctx);
-    if (!session) {
+    if (!session.success) {
         return {
             redirect: {
                 destination: "/login",
