@@ -13,32 +13,28 @@ export default function Editor({ initSave, content }: Props) {
     const [editorLoading, setEditorLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        const init = async () => {
-            // wait 1 second for the editor to load
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+        const editor = new EditorJS({
+            holder: "editorjs",
+            data: content ? content : undefined,
+            tools: EDITOR_JS_TOOLS,
+            placeholder: "Buradan yazmaya başlayın.",
+        });
 
-            const editor = new EditorJS({
-                holder: "editorjs",
-                data: content ? content : undefined,
-                tools: EDITOR_JS_TOOLS,
-                placeholder: "Buradan yazmaya başlayın.",
-            });
+        editor.isReady.then(() => {
+            editorCore_.current = {
+                destroy: editor.destroy,
+                clear: editor.clear,
+                save: editor.save,
+                render: editor.render,
+            };
+            initSave(editorCore_.current);
+        });
 
-            editor.isReady.then(() => {
-                editorCore_.current = {
-                    destroy: editor.destroy,
-                    clear: editor.clear,
-                    save: editor.save,
-                    render: editor.render,
-                };
-                initSave(editorCore_.current);
-            });
-
-            setEditorLoading(false);
-            return editor;
-        }
-
-        init();
+        setEditorLoading(false);
+        return () => {
+            if (!editor || !(editor.destroy instanceof Function)) return;
+            editor.destroy();
+        };
     }, []);
 
     return (
