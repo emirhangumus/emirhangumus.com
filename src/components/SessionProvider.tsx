@@ -12,38 +12,37 @@ export default function SessionProvider({ children }: { children: React.ReactNod
     const token = Cookie.get("token");
 
     useEffect(() => {
-        // if (!token) {
-        //     setAppLoading({ loading: false, message: "" });
-        // } else {
-        //     setAppLoading({ loading: true, message: "Checking session" });
-        //     fetch("/api/auth/session", {
-        //         method: "GET",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //             'token': token
-        //         },
-        //         credentials: "include"
-        //     })
-        //         .then((res) => res.json())
-        //         .then((data) => {
-        //             if (data.success) {
-        //                 setUser({
-        //                     id: data.user.id,
-        //                     name: data.user.name,
-        //                     email: data.user.email,
-        //                     role: data.user.role,
-        //                 });
-        //                 setAppLoading({ loading: false, message: "" });
-        //             } else {
-        //                 setAppLoading({ loading: false, message: "" });
-        //             }
-        //         })
-        //         .catch((err) => {
-        //             console.error(err);
-        //             setAppLoading({ loading: false, message: "" });
-        //         });
-        // }
-        // setAppLoading({ loading: false, message: "Checking session" });s
+        if (!token) {
+            setAppLoading({ loading: false, message: "" });
+        } else {
+            setAppLoading({ loading: true, message: "Checking session" });
+            fetch("/api/auth/session", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    'token': token
+                },
+                credentials: "include"
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.success) {
+                        setUser({
+                            id: data.user.id,
+                            name: data.user.name,
+                            email: data.user.email,
+                            role: data.user.role,
+                        });
+                        setAppLoading({ loading: false, message: "" });
+                    } else {
+                        setAppLoading({ loading: false, message: "" });
+                    }
+                })
+                .catch((err) => {
+                    console.error(err);
+                    setAppLoading({ loading: false, message: "" });
+                });
+        }
     }, []);
 
 
