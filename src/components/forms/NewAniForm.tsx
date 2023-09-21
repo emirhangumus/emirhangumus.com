@@ -31,7 +31,7 @@ export default function NewAniForm() {
         const formData = new FormData();
         formData.append("image", file);
 
-        let upload_image: ImageProviderResponse = await fetch(`${process.env.NEXT_PUBLIC_IMAGE_PROVIDER_URL}/api/v1/upload`, {
+        let upload_image: ImageProviderResponse = await fetch(`${process.env.NEXT_PUBLIC_IMAGE_PROVIDER_URL}/upload`, {
             method: "POST",
             headers: {
                 "authorization": `Bearer ${Cookies.get('imageToken') || ''}`,

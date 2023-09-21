@@ -1,5 +1,4 @@
 import { useState } from "react";
-import SocialMedias from "./SocialMedias";
 
 export default function ContactForm() {
 
@@ -82,7 +81,6 @@ export default function ContactForm() {
                 <div className="flex flex-col gap-2">
                     <label htmlFor="email">E-posta Adresiniz</label>
                     <input
-                        type="email"
                         name="email"
                         id="email"
                         value={email}

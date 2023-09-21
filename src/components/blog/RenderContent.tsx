@@ -36,7 +36,7 @@ const defaultConfigs = {
         className: ""
     },
     image: {
-        className: "",
+        className: "flex flex-col",
         actionsClassNames: {
             stretched: "image-block--stretched",
             withBorder: "image-block--with-border",

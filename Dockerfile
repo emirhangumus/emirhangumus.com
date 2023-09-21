@@ -6,14 +6,14 @@ COPY package*.json ./
 
 COPY . .
 
-RUN npm ci --force
+RUN npm ci
 
 EXPOSE 3000
 
 RUN npx prisma generate
-RUN npm uninstall bcrypt --force
-RUN npm install bcryptjs --force
-RUN npm install bcrypt --force
+RUN npm uninstall bcrypt
+RUN npm install bcryptjs
+RUN npm install bcrypt
 
 RUN npm run build
 

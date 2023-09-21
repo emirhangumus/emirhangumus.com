@@ -52,7 +52,7 @@ export const EDITOR_JS_TOOLS = {
 
                     const formData = new FormData();
                     formData.append("image", file);
-                    return fetch(process.env.NEXT_PUBLIC_IMAGE_PROVIDER_URL + "/api/v1/upload", {
+                    return fetch(process.env.NEXT_PUBLIC_IMAGE_PROVIDER_URL + "/upload", {
                         method: "POST",
                         headers: {
                             "authorization": "Bearer " + Cookies.get("imageToken"),

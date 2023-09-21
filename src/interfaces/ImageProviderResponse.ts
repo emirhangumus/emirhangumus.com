@@ -4,11 +4,12 @@ interface ImageProviderResponseBase {
 }
 
 interface ImageProviderResponseSuccess {
-    success: true;
+    success: boolean;
     data: {
         path: string;
         blurhash: string;
     };
+    error?: string;
 }
 
 type ImageProviderResponse = ImageProviderResponseBase | ImageProviderResponseSuccess;
