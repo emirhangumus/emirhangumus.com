@@ -9,56 +9,60 @@ import SessionProvider from "@/components/SessionProvider";
 
 export default function Dashboard() {
 
-    const router = useRouter();
+	const router = useRouter();
 
-    const items = [
-        {
-            id: "anilar",
-            title: "Anılar",
-        },
-        {
-            id: "blog",
-            title: "Blog",
-        },
-    ];
+	const items = [
+		{
+			id: "anilar",
+			title: "Anılar",
+		},
+		{
+			id: "blog",
+			title: "Blog",
+		},
+		{
+			id: "contacts",
+			title: "İletişim",
+		}
+	];
 
-    return (
-        <>
-            <SessionProvider>
-                <Container>
-                    <div className="flex gap-8">
-                        <div>
-                            <button onClick={async () => await logout(router)} className="text-cinder-100 bg-red-500 rounded-full w-full px-4 py-1">Çıkış</button>
-                        </div>
-                        <div className="w-full grid lg:grid-cols-6 grid-cols-1 flex-1 gap-4">
-                            {items.map((item) => (
-                                <Link href={`/dashboard/${item.id}`} key={item.id} className="bg-cinder-900 text-white rounded aspect-square flex items-center justify-center text-lg hover:bg-cinder-800">
-                                    {item.title}
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
-                </Container>
-            </SessionProvider>
-        </>
-    );
+	return (
+		<>
+			<SessionProvider>
+				<Container>
+					<div className="flex gap-8">
+						<div>
+							<button onClick={async () => await logout(router)} className="text-cinder-100 bg-red-500 rounded-full w-full px-4 py-1">Çıkış</button>
+						</div>
+						<div className="w-full grid lg:grid-cols-6 grid-cols-1 flex-1 gap-4">
+							{items.map((item) => (
+								<Link href={`/dashboard/${item.id}`} key={item.id} className="bg-cinder-900 text-white rounded aspect-square flex items-center justify-center text-lg hover:bg-cinder-800">
+									{item.title}
+								</Link>
+							))}
+						</div>
+					</div>
+				</Container>
+			</SessionProvider>
+		</>
+	);
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const session = await getSession(context);
+	const session = await getSession(context);
 
-    if (!session.success) {
-        return {
-            redirect: {
-                destination: "/",
-                permanent: false,
-            },
-        };
-    }
+	if (!session.success) {
+		return {
+			redirect: {
+				destination: "/",
+				permanent: false,
+			},
+		};
+	}
 
-    return {
-        props: {
-            session,
-        },
-    };
+	return {
+		props: {
+			session,
+		},
+	};
 }
