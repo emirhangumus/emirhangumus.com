@@ -41,21 +41,17 @@ const GET = async (req: NextApiRequest, res: NextApiResponse) => {
             skip: Number(skip) || 0,
         });
 
-        if (!posts) {
-            return res.status(500).json({ success: false, message: "Something went wrong" })
-        }
-
         const total_posts = await prisma.posts.count({
             where: {
                 status: 'PUBLISHED'
             }
         });
 
-        if (!total_posts) {
-            return res.status(500).json({ success: false, message: "Something went wrong" })
-        }
+        let currentPage = Number(limit) / Number(skip);
 
-        const currentPage = Number(limit) / Number(skip);
+        if (currentPage === Infinity) {
+            currentPage = 1;
+        }
 
         res.status(200).json({
             success: true,
