@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String
+  name     String? @default("")
+  role     String  @default("user")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model sessions {
+  sid     String   @id @default(uuid())
+  user_id Int
+  token   String   @db.Text
+  expire  DateTime
+}
+
+model images {
+  id             Int      @id @default(autoincrement())
+  user_id        Int
+  image_url      String
+  image_blurhash String
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+  posts          posts[]
+  anilar         anilar[]
+}
+
+model anilar {
+  id          Int      @id @default(autoincrement())
+  user_id     Int
+  description String
+  image_id    Int
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  image images @relation(fields: [image_id], references: [id])
+}
+
+model posts {
+  id         Int      @id @default(autoincrement())
+  title      String
+  image_id   Int
+  content    Json
+  tag_ids    Json
+  slug       String   @unique
+  status     String   @default("DRAFT")
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  image images @relation(fields: [image_id], references: [id])
+}
+
+model tags {
+  id         Int      @id @default(autoincrement())
+  name       String
+  slug       String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model contact {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String
+  subject    String
+  message    String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
